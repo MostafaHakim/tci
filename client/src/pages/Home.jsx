@@ -75,7 +75,7 @@ export default function Home() {
     console.log("Form submitted:", formData);
 
     // চাইলে Backend API call করতে পারেন
-    fetch("http://localhost:4000/user", {
+    fetch("https://tci-backend.vercel.app/user", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData),
