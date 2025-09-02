@@ -9,16 +9,15 @@ const createUser = async (req, res) => {
         .status(401)
         .json({ massage: "Must fill username and password" });
     }
-    const existUser = await User.findOne({ userName });
+    const existUser = await User.findOne({ userName: userName });
     if (existUser) {
       return res.status(401).json({ massage: "User Already Exist" });
     }
     const newUser = new User({
       userName,
       mobileNumber,
-      course,
     });
-    const saveUser = await newUser();
+    const saveUser = await newUser.save();
     return res.status(201).json({ massage: "Sent massage successfully" });
   } catch (error) {
     return res.status(500).json({ massage: "Something Wrong" + error });
@@ -37,4 +36,4 @@ const getAllUser = async (req, res) => {
   }
 };
 
-module.exports = createUser;
+module.exports = { createUser, getAllUser };

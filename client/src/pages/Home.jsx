@@ -285,7 +285,7 @@ export default function Home() {
           <div className="grid lg:grid-cols-2 gap-10 items-center">
             <div>
               <h2 className="text-3xl md:text-4xl font-bold">
-                কেন TechPro Training?
+                কেন TCI Training?
               </h2>
               <p className="mt-4 text-slate-600">
                 ইন্ডাস্ট্রি-অ্যালাইন্ড কারিকুলাম, ১:১ মেন্টরশিপ, এবং ক্যারিয়ার

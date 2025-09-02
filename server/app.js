@@ -6,6 +6,7 @@ const mongoose = require("mongoose");
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
 const MONGO_URI =
   "mongodb+srv://tci:tci1234@cluster0.0cwne57.mongodb.net/tci?retryWrites=true&w=majority&appName=Cluster0";
 
