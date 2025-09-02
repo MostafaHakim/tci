@@ -67,6 +67,29 @@ export default function Home() {
     userName: "",
     mobileNumber: "",
   });
+
+  const handleSubmit = (e) => {
+    e.preventDefault(); // default reload বন্ধ করবে
+
+    // এখন formData ব্যবহার করতে পারবেন
+    console.log("Form submitted:", formData);
+
+    // চাইলে Backend API call করতে পারেন
+    fetch("http://localhost:4000/user", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(formData),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("Success:", data);
+      })
+      .catch((err) => console.error("Error:", err));
+
+    // সাবমিট করার পর ফর্ম ফাঁকা করতে চাইলে:
+    setFormData({ userName: "", mobileNumber: "", course: "" });
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white text-slate-900">
       {/* Navbar */}
@@ -354,17 +377,31 @@ export default function Home() {
 
               <form
                 className="mt-6 grid grid-cols-1 gap-4 max-w-md"
-                onSubmit={handelSubmit}
+                onSubmit={handleSubmit}
               >
                 <Input
                   placeholder="আপনার নাম"
                   required
-                  onChange={(e) => {
-                    setFormData.userName(e.target.value);
-                  }}
+                  value={formData.userName}
+                  onChange={(e) =>
+                    setFormData({ ...formData, userName: e.target.value })
+                  }
                 />
-                <Input type="tel" placeholder="মোবাইল নম্বর" required />
-                <Input placeholder="কোন কোর্সে আগ্রহী?" />
+                <Input
+                  type="tel"
+                  placeholder="মোবাইল নম্বর"
+                  required
+                  value={formData.mobileNumber}
+                  onChange={(e) =>
+                    setFormData({ ...formData, mobileNumber: e.target.value })
+                  }
+                />
+                <Input
+                  placeholder="কোন কোর্সে আগ্রহী?"
+                  onChange={(e) =>
+                    setFormData({ ...formData, course: e.target.value })
+                  }
+                />
                 <Button type="submit" className="rounded-2xl">
                   সাবমিট
                 </Button>
