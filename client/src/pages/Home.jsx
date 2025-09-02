@@ -66,28 +66,42 @@ export default function Home() {
   const [formData, setFormData] = useState({
     userName: "",
     mobileNumber: "",
+    courseName: "",
+    duration: "",
   });
 
   const handleSubmit = (e) => {
-    e.preventDefault(); // default reload বন্ধ করবে
+    e.preventDefault();
 
-    // এখন formData ব্যবহার করতে পারবেন
-    console.log("Form submitted:", formData);
+    const payload = {
+      userName: formData.userName,
+      mobileNumber: formData.mobileNumber,
+      course: [
+        {
+          courseName: formData.courseName,
+          duration: formData.duration,
+        },
+      ],
+    };
 
-    // চাইলে Backend API call করতে পারেন
+    console.log("Payload:", payload);
+
     fetch("https://tci-backend.vercel.app/user", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(formData),
+      body: JSON.stringify(payload),
     })
       .then((res) => res.json())
       .then((data) => {
         console.log("Success:", data);
+        setFormData({
+          userName: "",
+          mobileNumber: "",
+          courseName: "",
+          duration: "",
+        });
       })
       .catch((err) => console.error("Error:", err));
-
-    // সাবমিট করার পর ফর্ম ফাঁকা করতে চাইলে:
-    setFormData({ userName: "", mobileNumber: "", course: "" });
   };
 
   return (
@@ -398,8 +412,16 @@ export default function Home() {
                 />
                 <Input
                   placeholder="কোন কোর্সে আগ্রহী?"
+                  value={formData.courseName}
                   onChange={(e) =>
-                    setFormData({ ...formData, course: e.target.value })
+                    setFormData({ ...formData, courseName: e.target.value })
+                  }
+                />
+                <Input
+                  placeholder="কোর্সের সময়কাল"
+                  value={formData.duration}
+                  onChange={(e) =>
+                    setFormData({ ...formData, duration: e.target.value })
                   }
                 />
                 <Button type="submit" className="rounded-2xl">
