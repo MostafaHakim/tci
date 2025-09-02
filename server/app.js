@@ -5,7 +5,8 @@ const userRoute = require("./router/user.route");
 const mongoose = require("mongoose");
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-const MONGO_URI = "mongodb://127.0.0.1:27017/mydatabase";
+const MONGO_URI =
+  "mongodb+srv://tci:tci1234@cluster0.0cwne57.mongodb.net/tci?retryWrites=true&w=majority&appName=Cluster0";
 
 mongoose
   .connect(MONGO_URI, {
