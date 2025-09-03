@@ -21,4 +21,4 @@ const slideSchema = new mongoose.Schema({
 
 const Slide = mongoose.model("Slide", slideSchema);
 
-export default Slide;
+module.exports = Slide;
