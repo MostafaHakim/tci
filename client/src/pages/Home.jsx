@@ -9,6 +9,7 @@ import {
   CardHeader,
   CardTitle,
 } from "../components/ui/card";
+import Textarea from "../components/ui/textarea";
 import { Input } from "../components/ui/input";
 
 import {
@@ -67,6 +68,7 @@ export default function Home() {
   const [formData, setFormData] = useState({
     userName: "",
     mobileNumber: "",
+    userComments: "",
     courseName: "",
     duration: "",
   });
@@ -77,6 +79,7 @@ export default function Home() {
     const payload = {
       userName: formData.userName,
       mobileNumber: formData.mobileNumber,
+      userComments: formData.userComments,
       course: [
         {
           courseName: formData.courseName,
@@ -99,6 +102,7 @@ export default function Home() {
         setFormData({
           userName: "",
           mobileNumber: "",
+          userComments: "",
           courseName: "",
           duration: "",
         });
@@ -424,6 +428,13 @@ export default function Home() {
                   value={formData.duration}
                   onChange={(e) =>
                     setFormData({ ...formData, duration: e.target.value })
+                  }
+                />
+                <Textarea
+                  placeholder="আপনার জিজ্ঞাসা বা ম্যাসেজ বিস্তারিত লিখুন"
+                  value={formData.userComments}
+                  onChange={(e) =>
+                    setFormData({ ...formData, userComments: e.target.value })
                   }
                 />
                 <span className={`${formMsg != "" ? "hidden" : "flex"}`}>

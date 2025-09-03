@@ -2,7 +2,7 @@ const User = require("../model/user.model");
 
 const createUser = async (req, res) => {
   try {
-    const { userName, mobileNumber, course } = req.body;
+    const { userName, mobileNumber, course, userComments } = req.body;
 
     if (!userName || !mobileNumber) {
       return res
