@@ -11,4 +11,16 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  server: {
+    proxy: {
+      "/slider": {
+        target: "http://localhost:5000",
+        changeOrigin: true,
+      },
+      "/user": {
+        target: "http://localhost:5000",
+        changeOrigin: true,
+      },
+    },
+  },
 });

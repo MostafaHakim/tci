@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import axios from "axios";
 
 import { Button } from "../components/ui/button";
 import Logo from "../img/logo.jpeg";
@@ -24,6 +25,7 @@ import {
   MapPin,
   Mail,
 } from "lucide-react";
+import Slider from "../components/Slider/Slider";
 
 const courses = [
   {
@@ -72,6 +74,14 @@ export default function Home() {
     courseName: "",
     duration: "",
   });
+  const [slides, setSlides] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get("/slider")
+      .then((res) => setSlides(res.data))
+      .catch((err) => console.error(err));
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -90,7 +100,7 @@ export default function Home() {
 
     console.log("Payload:", payload);
 
-    fetch("https://tci-backend.vercel.app/user", {
+    fetch("/user", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
@@ -236,6 +246,10 @@ export default function Home() {
             </motion.div>
           </div>
         </div>
+      </section>
+
+      <section className="py-16">
+        <Slider slides={slides} />
       </section>
 
       {/* Courses */}

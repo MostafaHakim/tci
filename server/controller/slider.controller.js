@@ -1,25 +1,35 @@
-const Slide = require("../model/slider.model");
+const Slide = require("../models/slider.model");
 
 const getAllSlider = async (req, res) => {
   try {
     const slides = await Slide.find().sort({ order: 1 });
     res.status(200).json(slides);
   } catch (err) {
-    res.status(500).json({ message: "Server error" });
+    console.error("Error fetching slides:", err);
+    res.status(500).json({ message: "Server error while fetching slides." });
   }
 };
 
 const createNewSlide = async (req, res) => {
+  // Check if a file was uploaded
+  if (!req.file) {
+    return res.status(400).json({ message: "Image is required." });
+  }
+
   try {
     const newSlide = new Slide({
       title: req.body.title,
-      image: `/uploads/${req.file.filename}`, // file path
+      // Save the publicly accessible path, not the file system path
+      image: `/uploads/${req.file.filename}`,
     });
 
     await newSlide.save();
     res.status(201).json(newSlide);
   } catch (err) {
-    res.status(500).json({ message: "Upload failed" });
+    console.error("Error creating slide:", err);
+    res
+      .status(500)
+      .json({ message: "Slide creation failed due to a server error." });
   }
 };
 

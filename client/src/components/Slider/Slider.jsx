@@ -1,17 +1,8 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
+import { useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
-const Slider = () => {
-  const [slides, setSlides] = useState([]);
+const Slider = ({ slides }) => {
   const [current, setCurrent] = useState(0);
-
-  useEffect(() => {
-    axios
-      .get("http://localhost:5000/api/slides")
-      .then((res) => setSlides(res.data))
-      .catch((err) => console.error(err));
-  }, []);
 
   const prevSlide = () => {
     setCurrent((prev) => (prev === 0 ? slides.length - 1 : prev - 1));
@@ -22,7 +13,7 @@ const Slider = () => {
   };
 
   if (slides.length === 0)
-    return <p className="text-center py-10">Loading...</p>;
+    return <p className="text-center py-10">No slides to show.</p>;
 
   return (
     <div className="relative w-full max-w-4xl mx-auto overflow-hidden rounded-2xl shadow-lg">
