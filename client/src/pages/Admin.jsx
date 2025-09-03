@@ -103,35 +103,51 @@ export default function Admin({ onLogout }) {
             <motion.div
               key={index}
               whileHover={{ scale: 1.03 }}
-              className="bg-white rounded-2xl shadow-lg p-6 border border-gray-100 transition-all duration-300"
+              className="bg-white rounded-2xl shadow-md hover:shadow-xl p-6 border border-gray-100 transition-all duration-300"
             >
+              {/* User Info Section */}
               <div className="mb-4">
-                <h3 className="text-lg font-semibold text-gray-800">
+                <h3 className="text-xl font-bold text-gray-800 flex items-center gap-2">
                   {item.userName}
                 </h3>
-                <p className="text-sm text-gray-600">📞 {item.mobileNumber}</p>
+                <p className="text-sm text-gray-600 mt-1">
+                  📞 {item.mobileNumber}
+                </p>
+                {item.userComments && (
+                  <p className="text-sm text-gray-600 italic mt-1">
+                    💬 User Comments: {item.userComments}
+                  </p>
+                )}
               </div>
 
-              <h4 className="text-md font-bold text-gray-700 border-b pb-2 mb-3">
-                Courses Enrolled
+              {/* Courses Title */}
+              <h4 className="text-md font-semibold text-gray-700 border-b pb-2 mb-3 flex items-center gap-2">
+                🎓 Courses Enrolled
               </h4>
 
-              <div className="space-y-3">
+              {/* Courses Grid */}
+              <div className="grid sm:grid-cols-1">
                 {item.course.map((cour, idx) => (
-                  <div
+                  <motion.div
                     key={idx}
-                    className="bg-gray-50 p-3 rounded-lg border border-gray-200"
+                    whileHover={{ scale: 1.02 }}
+                    className="bg-gray-50 p-4 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-all"
                   >
                     <p className="text-sm text-gray-800">
                       <span className="font-semibold">Course:</span>{" "}
                       {cour.courseName}
                     </p>
-                    <p className="text-sm text-gray-600">
+                    <p className="text-sm text-gray-600 mt-1">
                       <span className="font-semibold">Duration:</span>{" "}
                       {cour.duration}
                     </p>
-                  </div>
+                  </motion.div>
                 ))}
+              </div>
+
+              {/* Footer */}
+              <div className="mt-5 text-xs text-gray-400 border-t pt-2 text-right">
+                ⏱ Last Updated: {new Date().toLocaleDateString()}
               </div>
             </motion.div>
           ))}
