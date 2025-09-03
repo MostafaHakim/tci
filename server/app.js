@@ -4,13 +4,7 @@ const cors = require("cors");
 const userRoute = require("./router/user.route");
 const sliderRoute = require("./router/slider.route");
 const mongoose = require("mongoose");
-app.use(
-  cors({
-    origin: "*",
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-  })
-);
+app.use(cors());
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
