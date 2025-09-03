@@ -4,12 +4,14 @@ const Slide = require("../model/slider.model");
 const getAllSlider = async (req, res) => {
   try {
     const slides = await Slide.find().sort({ order: 1 });
+    console.log("Slides fetched from DB:", slides); // ✅ Debug line
+
     if (!slides || slides.length === 0) {
       return res.status(404).json({ message: "No slides found" });
     }
     res.status(200).json(slides);
   } catch (err) {
-    console.error(err);
+    console.error("Error in getAllSlider:", err); // ✅ Full error log
     res.status(500).json({ message: "Server error" });
   }
 };
