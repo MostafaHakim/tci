@@ -14,6 +14,7 @@ const createUser = async (req, res) => {
       userName,
       mobileNumber,
       course,
+      userComments,
     });
     const saveUser = await newUser.save();
     return res.status(201).json({ message: "Sent massage successfully" });
