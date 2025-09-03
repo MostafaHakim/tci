@@ -9,13 +9,11 @@ const createUser = async (req, res) => {
         .status(401)
         .json({ message: "Must fill username and password" });
     }
-    const existUser = await User.findOne({ userName: userName });
-    if (existUser) {
-      return res.status(401).json({ message: "User Already Exist" });
-    }
+
     const newUser = new User({
       userName,
       mobileNumber,
+      course,
     });
     const saveUser = await newUser.save();
     return res.status(201).json({ message: "Sent massage successfully" });

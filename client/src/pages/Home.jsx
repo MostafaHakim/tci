@@ -94,9 +94,8 @@ export default function Home() {
     })
       .then((res) => res.json())
       .then((data) => {
-        setFormMsg(data.message || "User added successfully!");
+        setFormMsg(data.message); // spelling backend-এর মতোই রাখতে হবে
         console.log("Success:", data);
-
         setFormData({
           userName: "",
           mobileNumber: "",
@@ -104,10 +103,7 @@ export default function Home() {
           duration: "",
         });
       })
-      .catch((err) => {
-        console.error("Error:", err);
-        setFormMsg("Something went wrong!");
-      });
+      .catch((err) => console.error("Error:", err));
   };
 
   return (
