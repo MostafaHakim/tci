@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const userRoute = require("./router/user.route");
+const sliderRoute = require("./router/slider.route");
 const mongoose = require("mongoose");
 app.use(cors());
 app.use(express.json());
@@ -20,6 +21,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/user", userRoute);
+app.use("/slider", sliderRoute);
 
 app.use((req, res) => {
   res.status(404).send("Route not found");
