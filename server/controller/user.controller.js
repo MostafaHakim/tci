@@ -7,20 +7,20 @@ const createUser = async (req, res) => {
     if (!userName || !mobileNumber) {
       return res
         .status(401)
-        .json({ massage: "Must fill username and password" });
+        .json({ message: "Must fill username and password" });
     }
     const existUser = await User.findOne({ userName: userName });
     if (existUser) {
-      return res.status(401).json({ massage: "User Already Exist" });
+      return res.status(401).json({ message: "User Already Exist" });
     }
     const newUser = new User({
       userName,
       mobileNumber,
     });
     const saveUser = await newUser.save();
-    return res.status(201).json({ massage: "Sent massage successfully" });
+    return res.status(201).json({ message: "Sent massage successfully" });
   } catch (error) {
-    return res.status(500).json({ massage: "Something Wrong" + error });
+    return res.status(500).json({ message: "Something Wrong" + error });
   }
 };
 
@@ -28,11 +28,11 @@ const getAllUser = async (req, res) => {
   try {
     const allUser = await User.find({});
     if (!allUser) {
-      return res.status(404).json({ massage: "No user available" });
+      return res.status(404).json({ message: "No user available" });
     }
     return res.status(200).json(allUser);
   } catch (error) {
-    return res.status(500).json({ massage: "Something Wrong" + error });
+    return res.status(500).json({ message: "Something Wrong" + error });
   }
 };
 

@@ -63,6 +63,7 @@ const stats = [
 ];
 
 export default function Home() {
+  const [formMsg, setFormMsg] = useState("");
   const [formData, setFormData] = useState({
     userName: "",
     mobileNumber: "",
@@ -93,7 +94,9 @@ export default function Home() {
     })
       .then((res) => res.json())
       .then((data) => {
+        setFormMsg(data.message || "User added successfully!");
         console.log("Success:", data);
+
         setFormData({
           userName: "",
           mobileNumber: "",
@@ -101,7 +104,10 @@ export default function Home() {
           duration: "",
         });
       })
-      .catch((err) => console.error("Error:", err));
+      .catch((err) => {
+        console.error("Error:", err);
+        setFormMsg("Something went wrong!");
+      });
   };
 
   return (
@@ -424,6 +430,9 @@ export default function Home() {
                     setFormData({ ...formData, duration: e.target.value })
                   }
                 />
+                <span className={`${formMsg != "" ? "hidden" : "flex"}`}>
+                  {formMsg}
+                </span>
                 <Button type="submit" className="rounded-2xl">
                   সাবমিট
                 </Button>
