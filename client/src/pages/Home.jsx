@@ -24,7 +24,6 @@ import {
   MapPin,
   Mail,
 } from "lucide-react";
-import Slider from "../components/Slider/Slider";
 
 const courses = [
   {
@@ -139,9 +138,7 @@ export default function Home() {
           </div>
         </div>
       </header>
-      <section className="relative overflow-hidden">
-        <Slider />
-      </section>
+
       {/* Hero */}
       <section className="relative overflow-hidden">
         <div className="absolute inset-0 -z-10 [mask-image:radial-gradient(ellipse_at_center,white,transparent_70%)]">
