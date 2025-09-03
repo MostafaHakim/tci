@@ -2,8 +2,8 @@ const express = require("express");
 const multer = require("multer");
 const path = require("path");
 const {
-  createNewSlide,
   getAllSlider,
+  createNewSlide,
 } = require("../controller/slider.controller");
 
 const router = express.Router();
