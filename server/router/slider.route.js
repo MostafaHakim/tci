@@ -4,7 +4,7 @@ const path = require("path");
 const {
   createNewSlide,
   getAllSlider,
-} = require("../controllers/slider.controller");
+} = require("../controller/slider.controller");
 
 const router = express.Router();
 
