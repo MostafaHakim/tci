@@ -6,7 +6,7 @@ const fs = require("fs"); // File System module import
 const {
   getAllSlider,
   createNewSlide,
-} = require("../controllers/slider.controller");
+} = require("../controller/slider.controller");
 
 const router = express.Router();
 
