@@ -1,14 +1,27 @@
 const express = require("express");
+const multer = require("multer");
+const path = require("path");
 const {
-  getAllSlider,
   createNewSlide,
-} = require("../controller/slider.controller");
+  getAllSlider,
+} = require("../controllers/slider.controller");
 
 const router = express.Router();
 
-// GET all slides
-router.get("/", getAllSlider);
+// storage setup
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "uploads/"); // uploads folder এ save হবে
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + path.extname(file.originalname)); // unique name
+  },
+});
 
-// POST new slide
-router.post("/", createNewSlide);
+const upload = multer({ storage });
+
+// routes
+router.get("/", getAllSlider);
+router.post("/", upload.single("image"), createNewSlide);
+
 module.exports = router;

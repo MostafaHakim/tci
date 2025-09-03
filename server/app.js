@@ -22,6 +22,7 @@ app.get("/", (req, res) => {
 
 app.use("/user", userRoute);
 app.use("/slider", sliderRoute);
+app.use("/uploads", express.static("uploads"));
 
 app.use((req, res) => {
   res.status(404).send("Route not found");
