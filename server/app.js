@@ -9,6 +9,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 const userRoute = require("./router/user.route");
+const courseRoute = require("./router/course.route");
 
 const MONGO_URI =
   "mongodb+srv://tci:tci1234@cluster0.0cwne57.mongodb.net/tci?retryWrites=true&w=majority&appName=Cluster0";
@@ -23,6 +24,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/user", userRoute);
+app.use("/user", courseRoute);
 
 app.use((req, res) => {
   res.status(404).send("Route not found");
