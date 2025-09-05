@@ -28,6 +28,7 @@ import {
   Mail,
 } from "lucide-react";
 import Slider from "@/components/Slider";
+import Teachers from "@/components/Teachers";
 
 const courses = [
   {
@@ -506,7 +507,9 @@ export default function Home() {
           </div>
         </div>
       </section>
-
+      <section id="contact" className="py-16 bg-slate-50">
+        <Teachers />
+      </section>
       {/* Footer */}
       <footer className="border-t">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8 text-sm text-slate-600 flex flex-col md:flex-row items-center justify-between gap-4">
