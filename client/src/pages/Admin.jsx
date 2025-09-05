@@ -5,23 +5,13 @@ import axios from "axios";
 
 export default function Admin({ onLogout }) {
   const [data, setData] = useState([]);
-  const [slides, setSlides] = useState([]);
 
   useEffect(() => {
     fetch(`/user`)
       .then((res) => res.json())
       .then((data) => setData(data))
       .catch((err) => console.error("Error fetching data:", err));
-
-    axios
-      .get("/slider")
-      .then((res) => setSlides(res.data))
-      .catch((err) => console.error(err));
   }, []);
-
-  const handleSlideAdded = (newSlide) => {
-    setSlides([...slides, newSlide]);
-  };
 
   return (
     <div className="flex h-screen bg-gray-100">
