@@ -7,7 +7,7 @@ export default function Admin({ onLogout }) {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    fetch(`/user`)
+    fetch(`https://tci-backend.vercel.app/user`)
       .then((res) => res.json())
       .then((data) => setData(data))
       .catch((err) => console.error("Error fetching data:", err));
