@@ -180,21 +180,21 @@ export default function Home() {
         <div className="absolute inset-0 -z-10 [mask-image:radial-gradient(ellipse_at_center,white,transparent_70%)]">
           <div className="absolute -top-16 left-1/2 -translate-x-1/2 w-[1200px] h-[1200px] rounded-full bg-gradient-to-tr from-indigo-100 via-white to-pink-100" />
         </div>
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20">
+        <div className="mx-auto max-w-7xl px-2 py-2">
           <div className="grid lg:grid-cols-2 gap-10 items-center">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
             >
-              <h1 className="text-4xl md:text-6xl font-extrabold leading-tight tracking-tight">
+              <h1 className="text-xl md:text-4xl font-extrabold leading-tight tracking-tight">
                 আপনার ক্যারিয়ার শুরু হোক
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-pink-600">
                   {" "}
-                  টেক স্কিলে
+                  টিসিআই এর সাথে
                 </span>
               </h1>
-              <p className="mt-5 text-lg text-slate-600 max-w-xl">
+              <p className="mt-2 text-lg text-slate-600 max-w-xl">
                 প্রজেক্ট-ভিত্তিক কোর্স, ইন্ডাস্ট্রি এক্সপার্ট মেন্টর আর জব-রেডি
                 কারিকুলাম—সবকিছু এক জায়গায়।
               </p>
