@@ -135,7 +135,7 @@ function Slider({
               draggable={false}
             />
             {(slide.caption || slide.tag) && (
-              <div className="absolute inset-x-0 top-40 sm:top-80 md:top-100 lg:top-150 p-2 md:p-6 bg-gradient-to-tr from-black/60 to-transparent text-white ">
+              <div className="absolute inset-x-0 top-32 sm:top-80 md:top-100 lg:top-150 p-2 md:p-6 bg-gradient-to-tr from-black/60 to-transparent text-white ">
                 {slide.tag && (
                   <span className="inline-block mb-2 text-sm md:text-lg font-medium tracking-wide uppercase bg-white/10 backdrop-blur px-3 py-1 rounded-full">
                     {slide.tag}

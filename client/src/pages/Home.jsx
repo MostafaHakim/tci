@@ -159,7 +159,7 @@ export default function Home() {
             </a>
           </nav>
           <div className="flex items-center gap-3 ">
-            <Button className="rounded-2xl text-sm md:text-md">
+            <Button className="rounded-2xl text-xs md:text-md">
               ডেমো ক্লাস
             </Button>
           </div>
