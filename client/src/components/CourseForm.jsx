@@ -41,7 +41,7 @@ export default function CourseForm() {
     console.log("Submitted Data:", formData);
 
     // এখানে axios দিয়ে backend এ পাঠানো যাবে
-    // axios.post("http://localhost:4000/api/courses", formData)
+    axios.post("http://localhost:4000/api/courses", formData);
   };
 
   return (

@@ -24,7 +24,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/user", userRoute);
-app.use("/user", courseRoute);
+app.use("/course", courseRoute);
 
 app.use((req, res) => {
   res.status(404).send("Route not found");
