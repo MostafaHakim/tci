@@ -10,7 +10,7 @@ const teachers = [
     bio: "Experienced in algebra, calculus, and geometry with 10+ years of teaching.",
   },
   {
-    name: "আলা আমিন",
+    name: "আল আমিন",
     subject: "SEO , Web & Apps Development",
     img: Teacher2,
     bio: "Passionate about explaining physics concepts in a fun and practical way.",
