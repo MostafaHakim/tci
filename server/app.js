@@ -1,6 +1,6 @@
 const express = require("express");
 const cors = require("cors");
-const path = require("path");
+
 const app = express();
 
 const mongoose = require("mongoose");
@@ -30,8 +30,6 @@ app.get("/", (req, res) => {
 });
 
 app.use("/user", userRoute);
-app.use("/slider", sliderRoute);
-app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 app.use((req, res) => {
   res.status(404).send("Route not found");
