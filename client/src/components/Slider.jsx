@@ -1,17 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 
-/**
- * Simple, dependency-free Slider / Carousel for React + Tailwind
- * - Autoplay (pause on hover / focus)
- * - Swipe / drag on touch devices
- * - Keyboard arrows (when wrapper is focused)
- * - Dots & arrows navigation
- * - Looping
- *
- * Drop this file into a Vite + Tailwind project and use <App /> as your page
- * or copy out the <Slider /> component and use it anywhere.
- */
-
 function Slider({
   slides = [],
   autoPlay = true,
@@ -147,7 +135,7 @@ function Slider({
               draggable={false}
             />
             {(slide.caption || slide.tag) && (
-              <div className="absolute inset-x-0 bottom-0 p-4 md:p-6 bg-gradient-to-t from-black/60 to-transparent text-white">
+              <div className="absolute inset-x-0 top-40 sm:top-80 md:top-100 lg:top-150 p-4 md:p-6 bg-gradient-to-t from-black/60 to-transparent text-white ">
                 {slide.tag && (
                   <span className="inline-block mb-2 text-xs font-medium tracking-wide uppercase bg-white/10 backdrop-blur px-3 py-1 rounded-full">
                     {slide.tag}

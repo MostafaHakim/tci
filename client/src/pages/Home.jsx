@@ -162,7 +162,7 @@ export default function Home() {
       </header>
 
       <section className="relative overflow-hidden">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10">
+        <div className="mx-auto max-w-7xl px-2 sm:px-2 lg:px-2 py-2">
           <Slider
             slides={demoSlides}
             autoPlay={true}
