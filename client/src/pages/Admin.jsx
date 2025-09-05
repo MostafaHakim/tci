@@ -8,11 +8,13 @@ import {
   LogOut,
   Search,
   Trash2,
+  Menu,
 } from "lucide-react";
 import axios from "axios";
 
 export default function Admin({ onLogout }) {
   const [data, setData] = useState([]);
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     fetchUsers();
@@ -42,9 +44,9 @@ export default function Admin({ onLogout }) {
   };
 
   return (
-    <div className="flex bg-gray-100">
-      {/* Sidebar */}
-      <aside className="w-64 bg-gray-900 text-gray-100 flex flex-col">
+    <div className="flex flex-col md:flex-row bg-gray-100 min-h-screen">
+      {/* Desktop Sidebar */}
+      <aside className="hidden md:flex w-64 bg-gray-900 text-gray-100 flex-col">
         <div className="p-6 text-2xl font-bold tracking-wide">Admin Panel</div>
         <nav className="flex-1 space-y-2 px-4">
           <a
@@ -82,11 +84,63 @@ export default function Admin({ onLogout }) {
         </div>
       </aside>
 
+      {/* Mobile Sidebar */}
+      <motion.aside
+        initial={{ x: "-100%" }}
+        animate={{ x: isOpen ? "0%" : "-100%" }}
+        transition={{ duration: 0.3 }}
+        className="fixed md:hidden top-0 left-0 w-64 h-full bg-gray-900 text-gray-100 flex flex-col z-50 shadow-lg"
+      >
+        <div className="p-6 text-2xl font-bold tracking-wide flex justify-between">
+          Admin Panel
+          <button
+            className="md:hidden text-gray-400 hover:text-white"
+            onClick={() => setIsOpen(false)}
+          >
+            ✕
+          </button>
+        </div>
+        <nav className="flex-1 space-y-2 px-4">
+          <a
+            href="#"
+            className="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-700"
+          >
+            <Home size={20} /> Dashboard
+          </a>
+          <a
+            href="#"
+            className="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-700"
+          >
+            <Users size={20} /> Users
+          </a>
+          <a
+            href="#"
+            className="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-700"
+          >
+            <BarChart size={20} /> Reports
+          </a>
+          <a
+            href="#"
+            className="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-700"
+          >
+            <Settings size={20} /> Settings
+          </a>
+        </nav>
+        <div className="p-4 border-t border-gray-700">
+          <button
+            onClick={onLogout}
+            className="flex items-center gap-2 w-full p-2 rounded-lg hover:bg-gray-700"
+          >
+            <LogOut size={20} /> Logout
+          </button>
+        </div>
+      </motion.aside>
+
       {/* Main Content */}
       <div className="flex-1 flex flex-col">
         {/* Navbar */}
         <header className="bg-white shadow p-4 flex justify-between items-center">
-          <div className="flex items-center gap-2 bg-gray-100 px-3 py-2 rounded-lg w-1/3">
+          <div className="flex items-center gap-2 bg-gray-100 px-3 py-2 rounded-lg w-full md:w-1/3">
             <Search size={18} className="text-gray-500" />
             <input
               type="text"
@@ -95,17 +149,26 @@ export default function Admin({ onLogout }) {
             />
           </div>
           <div className="flex items-center gap-3">
-            <img
-              src="https://i.pravatar.cc/40"
-              alt="profile"
-              className="w-10 h-10 rounded-full"
-            />
-            <span className="font-medium">Admin</span>
+            {/* Mobile Menu Button */}
+            <button
+              className="md:hidden p-2 rounded-lg hover:bg-gray-200"
+              onClick={() => setIsOpen(true)}
+            >
+              <Menu size={22} />
+            </button>
+            <div className="hidden sm:flex items-center gap-3">
+              <img
+                src="https://i.pravatar.cc/40"
+                alt="profile"
+                className="w-10 h-10 rounded-full"
+              />
+              <span className="font-medium">Admin</span>
+            </div>
           </div>
         </header>
 
         {/* Dashboard Content */}
-        <main className="p-6">
+        <main className="p-6 flex-1">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <motion.div
               whileHover={{ scale: 1.05 }}
@@ -131,12 +194,12 @@ export default function Admin({ onLogout }) {
           </div>
 
           {/* User Cards */}
-          <div className="mt-6 grid grid-cols-4 gap-2">
+          <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
             {data.map((item, index) => (
               <motion.div
                 key={index}
                 whileHover={{ scale: 1.03 }}
-                className="bg-white rounded-2xl shadow-md hover:shadow-xl p-6 border border-gray-100 transition-all duration-300 col-span-1 relative"
+                className="bg-white rounded-2xl shadow-md hover:shadow-xl p-6 border border-gray-100 transition-all duration-300 relative"
               >
                 {/* Delete button */}
                 <button
