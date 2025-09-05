@@ -1,6 +1,6 @@
 const express = require("express");
 const multer = require("multer");
-const path = "path";
+const path = require("path");
 const fs = require("fs"); // File System module import
 
 const {
