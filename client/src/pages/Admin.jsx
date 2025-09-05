@@ -1,20 +1,48 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Home, Users, BarChart, Settings, LogOut, Search } from "lucide-react";
+import {
+  Home,
+  Users,
+  BarChart,
+  Settings,
+  LogOut,
+  Search,
+  Trash2,
+} from "lucide-react";
 import axios from "axios";
 
 export default function Admin({ onLogout }) {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    fetch(`https://tci-backend.vercel.app/user`)
-      .then((res) => res.json())
-      .then((data) => setData(data))
-      .catch((err) => console.error("Error fetching data:", err));
+    fetchUsers();
   }, []);
 
+  // Fetch all users
+  const fetchUsers = async () => {
+    try {
+      const res = await fetch(`https://tci-backend.vercel.app/user`);
+      const json = await res.json();
+      setData(json);
+    } catch (err) {
+      console.error("Error fetching data:", err);
+    }
+  };
+
+  // Delete user
+  const handleDelete = async (id) => {
+    if (!window.confirm("Are you sure you want to delete this user?")) return;
+
+    try {
+      await axios.delete(`https://tci-backend.vercel.app/user/${id}`);
+      setData(data.filter((u) => u._id !== id)); // remove from UI
+    } catch (err) {
+      console.error("Error deleting user:", err);
+    }
+  };
+
   return (
-    <div className="flex  bg-gray-100">
+    <div className="flex bg-gray-100">
       {/* Sidebar */}
       <aside className="w-64 bg-gray-900 text-gray-100 flex flex-col">
         <div className="p-6 text-2xl font-bold tracking-wide">Admin Panel</div>
@@ -102,16 +130,25 @@ export default function Admin({ onLogout }) {
             </motion.div>
           </div>
 
+          {/* User Cards */}
           <div className="mt-6 grid grid-cols-4 gap-2">
             {data.map((item, index) => (
               <motion.div
                 key={index}
                 whileHover={{ scale: 1.03 }}
-                className="bg-white rounded-2xl shadow-md hover:shadow-xl p-6 border border-gray-100 transition-all duration-300 col-span-1"
+                className="bg-white rounded-2xl shadow-md hover:shadow-xl p-6 border border-gray-100 transition-all duration-300 col-span-1 relative"
               >
+                {/* Delete button */}
+                <button
+                  onClick={() => handleDelete(item._id)}
+                  className="absolute top-3 right-3 text-red-500 hover:text-red-700"
+                >
+                  <Trash2 size={18} />
+                </button>
+
                 {/* User Info Section */}
                 <div className="mb-4">
-                  <h3 className="text-xl font-bold text-gray-800 flex items-center gap-2">
+                  <h3 className="text-xl font-bold text-gray-800">
                     {item.userName}
                   </h3>
                   <p className="text-sm text-gray-600 mt-1">
@@ -125,7 +162,7 @@ export default function Admin({ onLogout }) {
                 </div>
 
                 {/* Courses Title */}
-                <h4 className="text-md font-semibold text-gray-700 border-b pb-2 mb-3 flex items-center gap-2">
+                <h4 className="text-md font-semibold text-gray-700 border-b pb-2 mb-3">
                   🎓 Courses Enrolled
                 </h4>
 

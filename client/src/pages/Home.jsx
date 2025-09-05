@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import axios from "axios";
+import slide1 from "../img/01.jpeg";
+import slide2 from "../img/02.jpeg";
+import slide3 from "../img/03.jpeg";
 
 import { Button } from "../components/ui/button";
 import Logo from "../img/logo.jpeg";
@@ -25,6 +27,7 @@ import {
   MapPin,
   Mail,
 } from "lucide-react";
+import Slider from "@/components/Slider";
 
 const courses = [
   {
@@ -54,6 +57,24 @@ const courses = [
     duration: "৪ মাস",
     level: "ইন্টারমিডিয়েট",
     highlight: ["এপিআই ডেভেলপমেন্ট", "অ্যাডমিন ড্যাশবোর্ড", "ডেপ্লয়মেন্ট"],
+  },
+];
+
+const demoSlides = [
+  {
+    src: slide1,
+    caption: "Sunrise over the ridge",
+    tag: "Nature",
+  },
+  {
+    src: slide2,
+    caption: "Minimal workspace vibes",
+    tag: "Workspace",
+  },
+  {
+    src: slide3,
+    caption: "City lights at dusk",
+    tag: "City",
   },
 ];
 
@@ -139,6 +160,20 @@ export default function Home() {
           </div>
         </div>
       </header>
+
+      <section className="relative overflow-hidden">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10">
+          <Slider
+            slides={demoSlides}
+            autoPlay={true}
+            interval={3500}
+            loop={true}
+            showArrows={true}
+            showDots={true}
+            className="aspect-[16/9]"
+          />
+        </div>
+      </section>
 
       {/* Hero */}
       <section className="relative overflow-hidden">
