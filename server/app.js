@@ -4,18 +4,11 @@ const cors = require("cors");
 const app = express();
 
 const mongoose = require("mongoose");
-app.use(
-  cors({
-    origin: "*",
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-  })
-);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cors());
 const userRoute = require("./router/user.route");
-const sliderRoute = require("./router/slider.route");
 
 const MONGO_URI =
   "mongodb+srv://tci:tci1234@cluster0.0cwne57.mongodb.net/tci?retryWrites=true&w=majority&appName=Cluster0";
