@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import slide1 from "../img/01.jpeg";
 import slide2 from "../img/02.jpeg";
-import slide3 from "../img/03.jpeg";
+import slide4 from "../img/04.jpeg";
 
 import { Button } from "../components/ui/button";
 import Logo from "../img/logo.jpeg";
@@ -63,18 +63,18 @@ const courses = [
 const demoSlides = [
   {
     src: slide1,
-    caption: "Sunrise over the ridge",
-    tag: "Nature",
+    caption: "সার্টিফিকেট বিতরন",
+    tag: "Tangail Computer Institute",
   },
   {
     src: slide2,
-    caption: "Minimal workspace vibes",
-    tag: "Workspace",
+    caption: "বিদায় অনুষ্ঠান",
+    tag: "Tangail Computer Institute",
   },
   {
-    src: slide3,
-    caption: "City lights at dusk",
-    tag: "City",
+    src: slide4,
+    caption: "সার্টিফিকেট বিতরন",
+    tag: "Tangail Computer Institute",
   },
 ];
 
