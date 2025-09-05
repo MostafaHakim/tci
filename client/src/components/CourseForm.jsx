@@ -1,10 +1,13 @@
 import React, { useState } from "react";
+import axios from "axios";
 
-export default function CourseForm() {
+export default function CourseForm({ onSubmitSuccess }) {
   const [courseName, setCourseName] = useState("");
   const [courseDuration, setCourseDuration] = useState("");
   const [courseTitel, setCourseTitel] = useState([{ titelName: "" }]);
   const [tags, setTags] = useState([{ tagName: "" }]);
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
 
   // টাইটেল পরিবর্তন
   const handleTitelChange = (index, value) => {
@@ -30,18 +33,35 @@ export default function CourseForm() {
     setTags([...tags, { tagName: "" }]);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const formData = {
-      courseName,
-      courseTitel,
-      courseDuration,
-      tags,
-    };
-    console.log("Submitted Data:", formData);
+    setLoading(true);
+    setMessage("");
 
-    // এখানে axios দিয়ে backend এ পাঠানো যাবে
-    axios.post("http://localhost:4000/api/courses", formData);
+    const formData = { courseName, courseTitel, courseDuration, tags };
+
+    try {
+      const res = await axios.post(
+        "https://tci-backend.vercel.app/course",
+        formData
+      );
+      setMessage("✅ Course saved successfully!");
+      console.log("Response:", res.data);
+
+      // ফর্ম রিসেট
+      setCourseName("");
+      setCourseDuration("");
+      setCourseTitel([{ titelName: "" }]);
+      setTags([{ tagName: "" }]);
+
+      // সাবমিট সফল হলে মডাল বন্ধ করার কল
+      if (onSubmitSuccess) onSubmitSuccess(res.data);
+    } catch (error) {
+      console.error("Error:", error);
+      setMessage("❌ Failed to save course!");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -59,6 +79,7 @@ export default function CourseForm() {
             onChange={(e) => setCourseName(e.target.value)}
             className="w-full border rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
             placeholder="Enter course name"
+            required
           />
         </div>
 
@@ -73,6 +94,7 @@ export default function CourseForm() {
             onChange={(e) => setCourseDuration(e.target.value)}
             className="w-full border rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
             placeholder="e.g. 3 Months"
+            required
           />
         </div>
 
@@ -89,6 +111,7 @@ export default function CourseForm() {
               onChange={(e) => handleTitelChange(index, e.target.value)}
               className="w-full border rounded-lg p-2 mb-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder={`Title ${index + 1}`}
+              required
             />
           ))}
           <button
@@ -111,6 +134,7 @@ export default function CourseForm() {
               onChange={(e) => handleTagChange(index, e.target.value)}
               className="w-full border rounded-lg p-2 mb-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder={`Tag ${index + 1}`}
+              required
             />
           ))}
           <button
@@ -125,11 +149,17 @@ export default function CourseForm() {
         {/* Submit */}
         <button
           type="submit"
+          disabled={loading}
           className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 font-semibold"
         >
-          Save Course
+          {loading ? "Saving..." : "Save Course"}
         </button>
       </form>
+
+      {/* Message */}
+      {message && (
+        <p className="mt-4 text-center font-medium text-gray-700">{message}</p>
+      )}
     </div>
   );
 }
