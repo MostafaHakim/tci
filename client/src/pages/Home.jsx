@@ -25,7 +25,6 @@ import {
   MapPin,
   Mail,
 } from "lucide-react";
-import Slider from "../components/Slider/Slider";
 
 const courses = [
   {
