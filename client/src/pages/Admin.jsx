@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Home, Users, BarChart, Settings, LogOut, Search } from "lucide-react";
-import Slider from "../components/Slider/Slider";
-import SliderAdd from "../components/Slider/SliderAdd";
 import axios from "axios";
 
 export default function Admin({ onLogout }) {
@@ -112,14 +110,6 @@ export default function Admin({ onLogout }) {
               <h3 className="text-lg font-semibold">New User</h3>
               <p className="text-3xl font-bold mt-2">1</p>
             </motion.div>
-          </div>
-
-          <div className="mt-6">
-            <SliderAdd onSlideAdded={handleSlideAdded} />
-          </div>
-
-          <div className="mt-6">
-            <Slider slides={slides} />
           </div>
 
           <div className="mt-6">
