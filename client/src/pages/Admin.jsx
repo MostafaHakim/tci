@@ -14,7 +14,7 @@ export default function Admin({ onLogout }) {
   }, []);
 
   return (
-    <div className="flex h-screen bg-gray-100">
+    <div className="flex  bg-gray-100">
       {/* Sidebar */}
       <aside className="w-64 bg-gray-900 text-gray-100 flex flex-col">
         <div className="p-6 text-2xl font-bold tracking-wide">Admin Panel</div>
@@ -102,12 +102,12 @@ export default function Admin({ onLogout }) {
             </motion.div>
           </div>
 
-          <div className="mt-6">
+          <div className="mt-6 grid grid-cols-4 gap-2">
             {data.map((item, index) => (
               <motion.div
                 key={index}
                 whileHover={{ scale: 1.03 }}
-                className="bg-white rounded-2xl shadow-md hover:shadow-xl p-6 border border-gray-100 transition-all duration-300"
+                className="bg-white rounded-2xl shadow-md hover:shadow-xl p-6 border border-gray-100 transition-all duration-300 col-span-1"
               >
                 {/* User Info Section */}
                 <div className="mb-4">
