@@ -135,9 +135,9 @@ function Slider({
               draggable={false}
             />
             {(slide.caption || slide.tag) && (
-              <div className="absolute inset-x-0 top-30 sm:top-80 md:top-100 lg:top-150 p-4 md:p-6 bg-gradient-to-tr from-black/60 to-transparent text-white ">
+              <div className="absolute inset-x-0 top-30 sm:top-80 md:top-100 lg:top-150 p-2 md:p-6 bg-gradient-to-tr from-black/60 to-transparent text-white ">
                 {slide.tag && (
-                  <span className="inline-block mb-2 text-sm md:text-xl font-medium tracking-wide uppercase bg-white/10 backdrop-blur px-3 py-1 rounded-full">
+                  <span className="inline-block mb-2 text-sm md:text-lg font-medium tracking-wide uppercase bg-white/10 backdrop-blur px-3 py-1 rounded-full">
                     {slide.tag}
                   </span>
                 )}
@@ -158,7 +158,7 @@ function Slider({
           <button
             onClick={prev}
             aria-label="Previous slide"
-            className="absolute left-3 top-1/2 -translate-y-1/2 grid place-items-center w-10 h-10 md:w-12 md:h-12 rounded-full bg-white/80 hover:bg-white shadow active:scale-95"
+            className="absolute left-3 top-1/2 -translate-y-1/2 grid place-items-center w-6 h-6 md:w-12 md:h-12 rounded-full bg-white/80 hover:bg-white shadow active:scale-95"
           >
             <svg
               width="20"
@@ -177,7 +177,7 @@ function Slider({
           <button
             onClick={next}
             aria-label="Next slide"
-            className="absolute right-3 top-1/2 -translate-y-1/2 grid place-items-center w-10 h-10 md:w-12 md:h-12 rounded-full bg-white/80 hover:bg-white shadow active:scale-95"
+            className="absolute right-3 top-1/2 -translate-y-1/2 grid place-items-center w-6 h-6 md:w-12 md:h-12 rounded-full bg-white/80 hover:bg-white shadow active:scale-95"
           >
             <svg
               width="20"
@@ -204,7 +204,7 @@ function Slider({
               key={i}
               aria-label={`Go to slide ${i + 1}`}
               onClick={() => goTo(i)}
-              className={`h-2.5 rounded-full transition-all ${
+              className={`h-0.5 md:h-2.5 rounded-full transition-all ${
                 i === index
                   ? "w-6 bg-white"
                   : "w-2.5 bg-white/60 hover:bg-white/90"
