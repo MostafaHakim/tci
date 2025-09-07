@@ -10,11 +10,11 @@ function VisitorMessage() {
   useEffect(() => {
     fetchUsers();
   }, []);
-
+  const baseUrl = import.meta.env.VITE_BASE_URL;
   const fetchUsers = async () => {
     try {
       setLoading(true);
-      const res = await fetch(`https://tci-backend.vercel.app/user`);
+      const res = await fetch(`${baseUrl}/user`);
       const json = await res.json();
       setData(json);
       setLoading(false);
@@ -27,7 +27,7 @@ function VisitorMessage() {
   const handleDeleteUser = async (id) => {
     if (!window.confirm("Are you sure you want to delete this user?")) return;
     try {
-      await axios.delete(`https://tci-backend.vercel.app/user/${id}`);
+      await axios.delete(`${baseUrl}/user/${id}`);
       setData(data.filter((u) => u._id !== id));
     } catch (err) {
       console.error("Error deleting user:", err);

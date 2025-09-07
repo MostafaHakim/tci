@@ -11,15 +11,16 @@ export default function Admin({ onLogout }) {
   const [courses, setCourses] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const location = useLocation("/admin/message");
+  const location = useLocation();
+  const adminNameLocal = localStorage.getItem("adminName");
   useEffect(() => {
     fetchUsers();
     fetchCourses();
   }, []);
-
+  const baseUrl = import.meta.env.VITE_BASE_URL;
   const fetchUsers = async () => {
     try {
-      const res = await fetch(`https://tci-backend.vercel.app/user`);
+      const res = await fetch(`${baseUrl}/user`);
       const json = await res.json();
       setData(json);
     } catch (err) {
@@ -29,7 +30,7 @@ export default function Admin({ onLogout }) {
   // Fetch all courses
   const fetchCourses = async () => {
     try {
-      const res = await fetch(`https://tci-backend.vercel.app/course`);
+      const res = await fetch(`${baseUrl}/course`);
       const json = await res.json();
       setCourses(json);
     } catch (err) {
@@ -41,7 +42,7 @@ export default function Admin({ onLogout }) {
   const handleDeleteCourse = async (id) => {
     if (!window.confirm("Are you sure you want to delete this course?")) return;
     try {
-      await axios.delete(`https://tci-backend.vercel.app/course/${id}`);
+      await axios.delete(`${baseUrl}/course/${id}`);
       setCourses(courses.filter((c) => c._id !== id));
     } catch (err) {
       console.error("Error deleting course:", err);
@@ -91,7 +92,7 @@ export default function Admin({ onLogout }) {
                 alt="profile"
                 className="w-10 h-10 rounded-full"
               />
-              <span className="font-medium">Admin</span>
+              <span className="font-medium capitalize">{adminNameLocal}</span>
             </div>
           </div>
         </header>
@@ -124,7 +125,10 @@ export default function Admin({ onLogout }) {
           </div>
           <div
             className={`${
-              location.pathname === "/admin/message" ? "hidden" : "block"
+              location.pathname === "/admin/message" ||
+              location.pathname === "/admin/settings"
+                ? "hidden"
+                : "block"
             }`}
           >
             {/* Courses Section */}

@@ -9,6 +9,7 @@ export default function CourseForm({ onSubmitSuccess }) {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
 
+  const baseUrl = import.meta.env.VITE_BASE_URL;
   // টাইটেল পরিবর্তন
   const handleTitelChange = (index, value) => {
     const updated = [...courseTitel];
@@ -41,10 +42,7 @@ export default function CourseForm({ onSubmitSuccess }) {
     const formData = { courseName, courseTitel, courseDuration, tags };
 
     try {
-      const res = await axios.post(
-        "https://tci-backend.vercel.app/course",
-        formData
-      );
+      const res = await axios.post(`${baseUrl}/course`, formData);
       setMessage("✅ Course saved successfully!");
       console.log("Response:", res.data);
 

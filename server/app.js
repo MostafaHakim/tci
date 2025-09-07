@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 
@@ -10,9 +11,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 const userRoute = require("./router/user.route");
 const courseRoute = require("./router/course.route");
+const adminRoute = require("./router/admin.route");
 
-const MONGO_URI =
-  "mongodb+srv://tci:tci1234@cluster0.0cwne57.mongodb.net/tci?retryWrites=true&w=majority&appName=Cluster0";
+const MONGO_URI = process.env.MONGO_URI;
 
 mongoose
   .connect(MONGO_URI)
@@ -25,6 +26,7 @@ app.get("/", (req, res) => {
 
 app.use("/user", userRoute);
 app.use("/course", courseRoute);
+app.use("/admin", adminRoute);
 
 app.use((req, res) => {
   res.status(404).send("Route not found");

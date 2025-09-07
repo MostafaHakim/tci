@@ -3,7 +3,8 @@ import Admin from "./Admin";
 
 export default function Login() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [formData, setFormData] = useState({ id: "", password: "" });
+  const [formData, setFormData] = useState({ adminName: "", password: "" });
+  const baseUrl = import.meta.env.VITE_BASE_URL;
 
   // প্রথম লোডে localStorage থেকে লগইন স্টেট চেক করবে
   useEffect(() => {
@@ -17,21 +18,30 @@ export default function Login() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-
-    if (formData.id === "admin" && formData.password === "1234") {
-      setIsLoggedIn(true);
-      localStorage.setItem("isLoggedIn", "true"); // state সেভ
-    } else {
-      alert("❌ Invalid Admin ID or Password");
+    try {
+      const res = await fetch(`${baseUrl}/admin/${formData.adminName}`);
+      const data = await res.json();
+      console.log(data, formData);
+      if (data && data.adminPassword === formData.password) {
+        setIsLoggedIn(true);
+        localStorage.setItem("isLoggedIn", "true");
+        localStorage.setItem("adminName", data.adminName);
+        localStorage.setItem("adminType", data.adminType);
+      } else {
+        alert("❌ Invalid Admin ID or Password");
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Server error! Please try again.");
     }
   };
 
   const handleLogout = () => {
     setIsLoggedIn(false);
-    setFormData({ id: "", password: "" });
-    localStorage.removeItem("isLoggedIn"); // লগআউট হলে state মুছে ফেলবে
+    setFormData({ adminName: "", password: "" });
+    localStorage.removeItem("isLoggedIn");
   };
 
   if (isLoggedIn) {
@@ -47,11 +57,12 @@ export default function Login() {
             <label className="block text-sm font-medium">Admin ID</label>
             <input
               type="text"
-              name="id"
-              value={formData.id}
+              name="adminName"
+              value={formData.adminName}
               onChange={handleChange}
               className="w-full px-3 py-2 border rounded-lg focus:ring focus:ring-blue-300"
               placeholder="Enter Admin ID"
+              required
             />
           </div>
           <div>
@@ -63,6 +74,7 @@ export default function Login() {
               onChange={handleChange}
               className="w-full px-3 py-2 border rounded-lg focus:ring focus:ring-blue-300"
               placeholder="Enter Password"
+              required
             />
           </div>
           <button

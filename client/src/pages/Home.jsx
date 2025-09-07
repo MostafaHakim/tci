@@ -30,6 +30,7 @@ import {
 import Slider from "@/components/Slider";
 import Teachers from "@/components/Teachers";
 
+const baseUrl = import.meta.env.VITE_BASE_URL;
 // demo slides
 const demoSlides = [
   {
@@ -67,7 +68,7 @@ export default function Home() {
 
   // Fetch courses from backend
   useEffect(() => {
-    fetch("https://tci-backend.vercel.app/course")
+    fetch(`${baseUrl}/course`)
       .then((res) => res.json())
       .then((data) => {
         setCourses(data);
@@ -90,7 +91,7 @@ export default function Home() {
       ],
     };
 
-    fetch("https://tci-backend.vercel.app/user", {
+    fetch(`${baseUrl}/user`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
@@ -98,6 +99,9 @@ export default function Home() {
       .then((res) => res.json())
       .then((data) => {
         setFormMsg(data.message);
+        setTimeout(() => {
+          setFormMsg("");
+        }, 2000);
         setFormData({
           userName: "",
           mobileNumber: "",
