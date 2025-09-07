@@ -1,40 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import {
-  Home,
-  Users,
-  BarChart,
-  Settings,
-  LogOut,
-  Search,
-  Trash2,
-  Menu,
-  Sidebar,
-} from "lucide-react";
+import { Search, Trash2, Menu } from "lucide-react";
+import Sidebar from "../components/Sidebar";
 import axios from "axios";
-import CourseForm from "../components/CourseForm"; // Import CourseForm.jsx
+import CourseForm from "../components/CourseForm";
+import { Outlet, useLocation } from "react-router-dom";
 
 export default function Admin({ onLogout }) {
-  const [data, setData] = useState([]);
   const [courses, setCourses] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-
+  const location = useLocation("/admin/message");
   useEffect(() => {
-    fetchUsers();
     fetchCourses();
   }, []);
-
-  // Fetch all users
-  const fetchUsers = async () => {
-    try {
-      const res = await fetch(`https://tci-backend.vercel.app/user`);
-      const json = await res.json();
-      setData(json);
-    } catch (err) {
-      console.error("Error fetching users:", err);
-    }
-  };
 
   // Fetch all courses
   const fetchCourses = async () => {
@@ -44,17 +23,6 @@ export default function Admin({ onLogout }) {
       setCourses(json);
     } catch (err) {
       console.error("Error fetching courses:", err);
-    }
-  };
-
-  // Delete user
-  const handleDeleteUser = async (id) => {
-    if (!window.confirm("Are you sure you want to delete this user?")) return;
-    try {
-      await axios.delete(`https://tci-backend.vercel.app/user/${id}`);
-      setData(data.filter((u) => u._id !== id));
-    } catch (err) {
-      console.error("Error deleting user:", err);
     }
   };
 
@@ -73,16 +41,19 @@ export default function Admin({ onLogout }) {
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
 
-  // When a new course is added, update the courses list
   const handleCourseAdded = (newCourse) => {
-    setCourses([newCourse, ...courses]); // Add new course at top
+    setCourses([newCourse, ...courses]);
     closeModal();
   };
 
   return (
     <div className="flex flex-col md:flex-row bg-gray-100 min-h-screen">
-      {/* Sidebar (same as before) */}
-      <Sidebar />
+      {/* Sidebar */}
+      <Sidebar
+        isOpen={isOpen}
+        onClose={() => setIsOpen(false)}
+        onLogout={onLogout}
+      />
 
       {/* Main Content */}
       <div className="flex-1 flex flex-col">
@@ -123,7 +94,7 @@ export default function Admin({ onLogout }) {
               className="bg-white rounded-2xl shadow p-6"
             >
               <h3 className="text-lg font-semibold">Total Users</h3>
-              <p className="text-3xl font-bold mt-2">{data.length}</p>
+              <p className="text-3xl font-bold mt-2">03</p>
             </motion.div>
             <motion.div
               whileHover={{ scale: 1.05 }}
@@ -140,131 +111,78 @@ export default function Admin({ onLogout }) {
               <p className="text-3xl font-bold mt-2">1</p>
             </motion.div>
           </div>
-
-          {/* Users Section */}
-          <h2 className="mt-10 mb-4 text-xl font-bold">👥 All Users</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-            {data.map((item, index) => (
-              <motion.div
-                key={index}
-                whileHover={{ scale: 1.03 }}
-                className="bg-white rounded-2xl shadow-md hover:shadow-xl p-6 border border-gray-100 transition-all duration-300 relative"
-              >
+          <div
+            className={`${
+              location.pathname === "/admin/message" ? "hidden" : "block"
+            }`}
+          >
+            {/* Courses Section */}
+            <div className="mt-10">
+              <h2 className="mb-4 text-xl font-bold flex justify-between items-center">
+                📚 All Courses
                 <button
-                  onClick={() => handleDeleteUser(item._id)}
-                  className="absolute top-3 right-3 text-red-500 hover:text-red-700"
+                  onClick={openModal}
+                  className="px-4 py-2 text-sm bg-sky-600 text-white rounded-lg hover:bg-blue-700 shadow-lg"
                 >
-                  <Trash2 size={18} />
+                  Add Course
                 </button>
-
-                <div className="mb-4">
-                  <h3 className="text-xl font-bold text-gray-800">
-                    {item.userName}
-                  </h3>
-                  <p className="text-sm text-gray-600 mt-1">
-                    📞 {item.mobileNumber}
-                  </p>
-                  {item.userComments && (
-                    <p className="text-sm text-gray-600 italic mt-1">
-                      💬 User Comments: {item.userComments}
-                    </p>
-                  )}
-                </div>
-
-                <h4 className="text-md font-semibold text-gray-700 border-b pb-2 mb-3">
-                  🎓 Courses Enrolled
-                </h4>
-                <div className="grid sm:grid-cols-1">
-                  {item.course.map((cour, idx) => (
-                    <motion.div
-                      key={idx}
-                      whileHover={{ scale: 1.02 }}
-                      className="bg-gray-50 p-4 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-all"
-                    >
-                      <p className="text-sm text-gray-800">
-                        <span className="font-semibold">Course:</span>{" "}
-                        {cour.courseName}
-                      </p>
-                      <p className="text-sm text-gray-600 mt-1">
-                        <span className="font-semibold">Duration:</span>{" "}
-                        {cour.duration}
-                      </p>
-                    </motion.div>
-                  ))}
-                </div>
-                <div className="mt-5 text-xs text-gray-400 border-t pt-2 text-right">
-                  ⏱ Last Updated: {new Date().toLocaleDateString()}
-                </div>
-              </motion.div>
-            ))}
-          </div>
-
-          {/* Courses Section */}
-          <div className="mt-10">
-            <h2 className="mb-4 text-xl font-bold flex justify-between items-center">
-              📚 All Courses
-              <button
-                onClick={openModal}
-                className="px-4 py-2 text-sm bg-sky-600 text-white rounded-lg hover:bg-blue-700 shadow-lg"
-              >
-                Add Course
-              </button>
-            </h2>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-              {courses.map((course, idx) => (
-                <motion.div
-                  key={idx}
-                  whileHover={{ scale: 1.03 }}
-                  className="bg-white rounded-2xl shadow-md hover:shadow-xl p-6 border border-gray-100 relative"
-                >
-                  <button
-                    onClick={() => handleDeleteCourse(course._id)}
-                    className="absolute top-3 right-3 text-red-500 hover:text-red-700"
+              </h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                {courses.map((course) => (
+                  <motion.div
+                    key={course._id}
+                    whileHover={{ scale: 1.03 }}
+                    className="bg-white rounded-2xl shadow-md hover:shadow-xl p-6 border border-gray-100 relative"
                   >
-                    <Trash2 size={18} />
-                  </button>
+                    <button
+                      onClick={() => handleDeleteCourse(course._id)}
+                      className="absolute top-3 right-3 text-red-500 hover:text-red-700"
+                    >
+                      <Trash2 size={18} />
+                    </button>
+                    <h3 className="text-lg font-bold text-gray-800">
+                      {course.courseName}
+                    </h3>
+                    <p className="text-sm text-gray-600 mt-1">
+                      ⏳ Duration: {course.courseDuration}
+                    </p>
 
-                  <h3 className="text-lg font-bold text-gray-800">
-                    {course.courseName}
-                  </h3>
-                  <p className="text-sm text-gray-600 mt-1">
-                    ⏳ Duration: {course.courseDuration}
-                  </p>
-
-                  {course.courseTitel?.length > 0 && (
-                    <div className="mt-3">
-                      <h4 className="text-sm font-semibold">Titles:</h4>
-                      <ul className="list-disc list-inside text-sm text-gray-700">
-                        {course.courseTitel.map((t, i) => (
-                          <li key={i}>{t.titelName}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
-
-                  {course.tags?.length > 0 && (
-                    <div className="mt-3">
-                      <h4 className="text-sm font-semibold">Tags:</h4>
-                      <div className="flex flex-wrap gap-2 mt-1">
-                        {course.tags.map((tag, i) => (
-                          <span
-                            key={i}
-                            className="bg-gray-100 text-gray-700 text-xs px-2 py-1 rounded-full"
-                          >
-                            #{tag.tagName}
-                          </span>
-                        ))}
+                    {course.courseTitel?.length > 0 && (
+                      <div className="mt-3">
+                        <h4 className="text-sm font-semibold">Titles:</h4>
+                        <ul className="list-disc list-inside text-sm text-gray-700">
+                          {course.courseTitel.map((t, i) => (
+                            <li key={i}>{t.titelName}</li>
+                          ))}
+                        </ul>
                       </div>
-                    </div>
-                  )}
-                </motion.div>
-              ))}
+                    )}
+
+                    {course.tags?.length > 0 && (
+                      <div className="mt-3">
+                        <h4 className="text-sm font-semibold">Tags:</h4>
+                        <div className="flex flex-wrap gap-2 mt-1">
+                          {course.tags.map((tag, i) => (
+                            <span
+                              key={i}
+                              className="bg-gray-100 text-gray-700 text-xs px-2 py-1 rounded-full"
+                            >
+                              #{tag.tagName}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </motion.div>
+                ))}
+              </div>
             </div>
           </div>
+          <Outlet />
         </main>
       </div>
 
+      {/* Modal */}
       {isModalOpen && (
         <div className="fixed bg-gray-300 bg-opacity-30 inset-0 flex items-center justify-center z-50">
           <div className="bg-white rounded-2xl p-6 w-full max-w-2xl relative">

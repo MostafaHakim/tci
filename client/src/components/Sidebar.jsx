@@ -1,37 +1,65 @@
 import React from "react";
-import { Home, Users, BarChart, Settings, LogOut, Sidebar } from "lucide-react";
+import { Home, Users, BarChart, Settings, LogOut, X } from "lucide-react";
+import { Link } from "react-router-dom";
 
-function Sidebar() {
+function Sidebar({ onLogout, isOpen, onClose }) {
   return (
-    <div>
-      <aside className="hidden md:flex w-64 bg-gray-900 text-gray-100 flex-col">
-        <div className="p-6 text-2xl font-bold tracking-wide">Admin Panel</div>
+    <>
+      {/* Overlay for mobile */}
+      {isOpen && (
+        <div className="fixed inset-0 z-40 md:hidden" onClick={onClose}></div>
+      )}
+
+      <aside
+        className={`fixed md:relative z-50 w-64 bg-gray-900 text-gray-100 flex-col transition-transform duration-300 ${
+          isOpen ? "translate-x-0" : "-translate-x-full"
+        } md:translate-x-0 md:flex`}
+      >
+        {/* Header */}
+        <div className="p-6 flex justify-between items-center">
+          <Link to="/admin" className="text-2xl font-bold tracking-wide">
+            Admin Panel
+          </Link>
+          <button
+            className="md:hidden p-2 rounded-lg hover:bg-gray-700"
+            onClick={onClose}
+          >
+            <X size={20} />
+          </button>
+        </div>
+
+        {/* Navigation Links */}
         <nav className="flex-1 space-y-2 px-4">
-          <a
-            href="#"
+          <Link
+            to="/admin"
             className="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-700"
           >
             <Home size={20} /> Dashboard
-          </a>
-          <a
-            href="#"
+          </Link>
+
+          <Link
+            to="/admin/message"
             className="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-700"
           >
-            <Users size={20} /> Users
-          </a>
-          <a
-            href="#"
+            <Users size={20} /> Visitor Message
+          </Link>
+
+          <Link
+            to="/admin/reports"
             className="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-700"
           >
             <BarChart size={20} /> Reports
-          </a>
-          <a
-            href="#"
+          </Link>
+
+          <Link
+            to="/admin/settings"
             className="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-700"
           >
             <Settings size={20} /> Settings
-          </a>
+          </Link>
         </nav>
+
+        {/* Logout */}
         <div className="p-4 border-t border-gray-700">
           <button
             onClick={onLogout}
@@ -41,7 +69,7 @@ function Sidebar() {
           </button>
         </div>
       </aside>
-    </div>
+    </>
   );
 }
 

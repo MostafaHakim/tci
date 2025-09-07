@@ -59,11 +59,11 @@ function Teachers() {
                 variants={cardVariants(isEven)}
                 initial="hidden"
                 animate={inView ? "visible" : "hidden"}
-                className={`flex items-center bg-white shadow-lg p-6 transition-all duration-500 hover:shadow-xl w-2/3
+                className={`flex items-center bg-white shadow-lg p-6 transition-all duration-500 hover:shadow-xl w-full md:w-2/3
                   ${
                     isEven
-                      ? "rounded-r-full justify-end mr-auto"
-                      : "rounded-l-full ml-auto"
+                      ? "rounded-none md:rounded-r-full justify-end mr-auto"
+                      : "rounded-none md:rounded-r-full ml-auto"
                   }
                 `}
               >
