@@ -29,6 +29,7 @@ import {
 
 import Slider from "@/components/Slider";
 import Teachers from "@/components/Teachers";
+import AddressCard from "@/components/AddressCard";
 
 const baseUrl = import.meta.env.VITE_BASE_URL;
 // demo slides
@@ -389,21 +390,7 @@ export default function Home() {
               </form>
             </div>
 
-            <div>
-              <Card className="rounded-3xl">
-                <CardContent className="p-6 space-y-4">
-                  <div className="flex items-center gap-3">
-                    <Phone className="h-5 w-5" /> +880 1722440899
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <Mail className="h-5 w-5" /> hello@tci.institute
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <MapPin className="h-5 w-5" /> ১২৩, টাংগাইল।
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
+            <AddressCard />
           </div>
         </div>
       </section>

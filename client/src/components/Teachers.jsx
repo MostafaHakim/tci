@@ -63,7 +63,7 @@ function Teachers() {
                   ${
                     isEven
                       ? "rounded-none md:rounded-r-full justify-end mr-auto"
-                      : "rounded-none md:rounded-r-full ml-auto"
+                      : "rounded-none md:rounded-l-full ml-auto"
                   }
                 `}
               >
