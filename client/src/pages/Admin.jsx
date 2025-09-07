@@ -7,14 +7,25 @@ import CourseForm from "../components/CourseForm";
 import { Outlet, useLocation } from "react-router-dom";
 
 export default function Admin({ onLogout }) {
+  const [data, setData] = useState([]);
   const [courses, setCourses] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const location = useLocation("/admin/message");
   useEffect(() => {
+    fetchUsers();
     fetchCourses();
   }, []);
 
+  const fetchUsers = async () => {
+    try {
+      const res = await fetch(`https://tci-backend.vercel.app/user`);
+      const json = await res.json();
+      setData(json);
+    } catch (err) {
+      console.error("Error fetching users:", err);
+    }
+  };
   // Fetch all courses
   const fetchCourses = async () => {
     try {
@@ -93,8 +104,8 @@ export default function Admin({ onLogout }) {
               whileHover={{ scale: 1.05 }}
               className="bg-white rounded-2xl shadow p-6"
             >
-              <h3 className="text-lg font-semibold">Total Users</h3>
-              <p className="text-3xl font-bold mt-2">03</p>
+              <h3 className="text-lg font-semibold">Total Visitor Message</h3>
+              <p className="text-3xl font-bold mt-2">{data.length}</p>
             </motion.div>
             <motion.div
               whileHover={{ scale: 1.05 }}
