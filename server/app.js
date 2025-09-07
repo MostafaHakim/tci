@@ -12,6 +12,7 @@ app.use(cors());
 const userRoute = require("./router/user.route");
 const courseRoute = require("./router/course.route");
 const adminRoute = require("./router/admin.route");
+const siteInfoRoute = require("./router/site.router");
 
 const MONGO_URI = process.env.MONGO_URI;
 
@@ -27,6 +28,7 @@ app.get("/", (req, res) => {
 app.use("/user", userRoute);
 app.use("/course", courseRoute);
 app.use("/admin", adminRoute);
+app.use("/siteinfo", siteInfoRoute);
 
 app.use((req, res) => {
   res.status(404).send("Route not found");
