@@ -157,23 +157,64 @@ export default function Home() {
         </div>
       </header>
 
-      {/* Slider */}
-      <section className="relative overflow-hidden">
-        <div className="mx-auto max-w-7xl px-2 sm:px-2 lg:px-2 py-2">
-          <Slider
-            slides={demoSlides}
-            autoPlay
-            interval={3500}
-            loop
-            showArrows
-            showDots
-            className="aspect-[16/9]"
-          />
+      <section className="mx-auto max-w-7xl grid grid-cols-1 md:grid-cols-8 gap-6 items-center px-4 md:px-6 lg:px-8 py-10 bg-gradient-to-bl from-[#ffffff] to-[#aac9ec] shadow-2xl rounded-xl">
+        {/* Left Content */}
+        <div className="flex flex-col col-span-3 space-y-6 text-center md:text-left">
+          <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-slate-900">
+            Tangail Computer Institute
+          </h2>
+
+          <h1 className="text-2xl md:text-3xl lg:text-4xl font-extrabold leading-tight">
+            আপনার ক্যারিয়ার শুরু হোক{" "}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-pink-600">
+              টিসিআই এর সাথে
+            </span>
+          </h1>
+
+          <p className="text-lg md:text-xl text-slate-600 max-w-xl mx-auto md:mx-0">
+            প্রজেক্ট-ভিত্তিক কোর্স, ইন্ডাস্ট্রি এক্সপার্ট মেন্টর আর জব-রেডি
+            কারিকুলাম—সবকিছু এক জায়গায়।
+          </p>
+
+          <div className="mt-6 flex flex-wrap gap-4 justify-center md:justify-start">
+            <Button
+              asChild
+              size="lg"
+              className="rounded-2xl shadow-md hover:shadow-lg transition"
+            >
+              <a href="#courses" className="flex items-center">
+                কোর্স দেখুন <ArrowRight className="ml-2 h-5 w-5" />
+              </a>
+            </Button>
+            <Button
+              variant="outline"
+              asChild
+              size="lg"
+              className="rounded-2xl border-2 hover:bg-slate-50 transition"
+            >
+              <a href="#contact">ফ্রি কাউন্সেলিং</a>
+            </Button>
+          </div>
+        </div>
+
+        {/* Right Content (Slider) */}
+        <div className="col-span-5">
+          <div className="w-full aspect-[16/9] overflow-hidden rounded-2xl shadow-lg">
+            <Slider
+              slides={demoSlides}
+              autoPlay
+              interval={3500}
+              loop
+              showArrows
+              showDots
+              className="w-full h-full"
+            />
+          </div>
         </div>
       </section>
 
       {/* Hero Section */}
-      <section className="relative overflow-hidden">
+      <section className="relative overflow-hidden bg-gradient-to-bl from-blue-500 to-sky-300 max-w-7xl mx-auto rounded-xl mt-4 shadow-md p-4">
         <div className="absolute inset-0 -z-10 [mask-image:radial-gradient(ellipse_at_center,white,transparent_70%)]">
           <div className="absolute -top-16 left-1/2 -translate-x-1/2 w-[1200px] h-[1200px] rounded-full bg-gradient-to-tr from-indigo-100 via-white to-pink-100" />
         </div>
@@ -184,33 +225,6 @@ export default function Home() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
             >
-              <h1 className="text-xl md:text-4xl font-extrabold leading-tight tracking-tight">
-                আপনার ক্যারিয়ার শুরু হোক
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-pink-600">
-                  {" "}
-                  টিসিআই এর সাথে
-                </span>
-              </h1>
-              <p className="mt-2 text-lg text-slate-600 max-w-xl">
-                প্রজেক্ট-ভিত্তিক কোর্স, ইন্ডাস্ট্রি এক্সপার্ট মেন্টর আর জব-রেডি
-                কারিকুলাম—সবকিছু এক জায়গায়।
-              </p>
-              <div className="mt-8 flex flex-wrap gap-3">
-                <Button asChild size="lg" className="rounded-2xl">
-                  <a href="#courses" className="flex items-center">
-                    কোর্স দেখুন <ArrowRight className="ml-2 h-4 w-4" />
-                  </a>
-                </Button>
-                <Button
-                  variant="outline"
-                  asChild
-                  size="lg"
-                  className="rounded-2xl"
-                >
-                  <a href="#contact">ফ্রি কাউন্সেলিং</a>
-                </Button>
-              </div>
-
               {/* Stats */}
               <div className="mt-10 grid grid-cols-2 sm:grid-cols-4 gap-4">
                 {stats.map((s) => (
@@ -272,7 +286,10 @@ export default function Home() {
       </section>
 
       {/* Courses Section */}
-      <section id="courses" className="py-16 bg-white">
+      <section
+        id="courses"
+        className="max-w-7xl mx-auto py-4 bg-gradient-to-bl from-[#d1d1d1] to-[#c9bbc8] rounded-xl mt-4 shadow-md"
+      >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex items-end justify-between gap-4 mb-8">
             <div>
@@ -325,10 +342,13 @@ export default function Home() {
       </section>
 
       {/* Contact Form Section */}
-      <section id="contact" className="py-16 bg-slate-50">
+      <section
+        id="contact"
+        className="max-w-7xl mx-auto mt-4 py-16 bg-gradient-to-br from-[#c7ecee] to-[#a29bfe] rounded-xl"
+      >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-10 items-center">
-            <div>
+          <div className="grid lg:grid-cols-2 gap-10 items-start">
+            <div className="bg-white px-8 py-4 rounded-lg shadow-md">
               <h2 className="text-3xl md:text-4xl font-bold">
                 অ্যাডমিশন বা জিজ্ঞাসা?
               </h2>
@@ -396,13 +416,16 @@ export default function Home() {
       </section>
 
       {/* Teachers Section */}
-      <section id="teachers" className="py-16 bg-slate-50">
+      <section
+        id="teachers"
+        className="max-w-7xl mx-auto py-4 mt-4 rounded-xl shadow-lg bg-gradient-to-br from-[#82ccdd] to-[#60a3bc]"
+      >
         <Teachers />
       </section>
 
       {/* Footer */}
-      <footer className="border-t">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8 text-sm text-slate-600 flex flex-col md:flex-row items-center justify-between gap-4">
+      <footer className="border-t bg-blue-950 mt-4  text-white rounded-t-full">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-4 text-sm  flex flex-col md:flex-row items-center justify-between gap-4 ">
           <div>
             © {new Date().getFullYear()} Tangail Computer Institute. সর্বস্বত্ব
             সংরক্ষিত।
