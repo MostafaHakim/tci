@@ -157,7 +157,7 @@ export default function Home() {
         </div>
       </header>
 
-      <section className="mx-auto max-w-7xl grid grid-cols-1 md:grid-cols-8 gap-6 items-center px-4 md:px-6 lg:px-8 py-10 bg-gradient-to-bl from-[#ffffff] to-[#aac9ec] shadow-2xl rounded-xl">
+      <section className="mx-auto mt-2 max-w-7xl grid grid-cols-1 md:grid-cols-8 gap-6 items-center px-4 md:px-6 lg:px-8 py-10 bg-gradient-to-bl from-[#ffffff] to-[#aac9ec] shadow-2xl rounded-xl">
         {/* Left Content */}
         <div className="flex flex-col col-span-3 space-y-6 text-center md:text-left">
           <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-slate-900">
@@ -424,7 +424,7 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="border-t bg-blue-950 mt-4  text-white rounded-t-full">
+      <footer className="border-t bg-blue-950 mt-4  text-white rounded-none md:rounded-t-full">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-4 text-sm  flex flex-col md:flex-row items-center justify-between gap-4 ">
           <div>
             © {new Date().getFullYear()} Tangail Computer Institute. সর্বস্বত্ব
