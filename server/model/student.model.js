@@ -2,7 +2,8 @@ const mongoose = require("mongoose");
 
 const studentSchema = new mongoose.Schema({
   studentName: String,
-  studentImageUrl: String,
+  studentImageUrl: String, // Cloudinary থেকে পাওয়া URL
+  studentImageId: String, // Cloudinary public_id, উদাঃ "students/abcd1234"
   studentMobile: String,
   courseName: String,
   courseDuration: String,
