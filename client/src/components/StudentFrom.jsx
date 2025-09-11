@@ -7,7 +7,6 @@ export default function StudentForm() {
 
   const [formData, setFormData] = useState({
     studentName: "",
-    studentImageUrl: "",
     studentMobile: "",
     courseName: "",
     courseDuration: "",
@@ -15,7 +14,6 @@ export default function StudentForm() {
     admissionDate: "",
   });
 
-  // যখন কোর্স ডাটা আসবে তখন সেটাকে formData তে বসানো হবে
   useEffect(() => {
     if (courseName || courseDuration) {
       setFormData((prev) => ({
@@ -26,11 +24,9 @@ export default function StudentForm() {
     }
   }, [courseName, courseDuration]);
 
-  // আপনার বাকী কোড অপরিবর্তিত থাকবে...
-
   const [file, setFile] = useState(null);
-  const [uploading, setUploading] = useState(false);
   const baseUrl = import.meta.env.VITE_BASE_URL;
+
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -38,52 +34,32 @@ export default function StudentForm() {
     });
   };
 
-  const handleImageUpload = async () => {
-    if (!file) return alert("Please select an image!");
-
-    setUploading(true);
-
-    const data = new FormData();
-    data.append("file", file);
-    data.append("upload_preset", "Images"); // আপনার preset name দিন
-
-    try {
-      const res = await fetch(
-        "https://api.cloudinary.com/v1_1/dxyn1uoui/image/upload",
-        {
-          method: "POST",
-          body: data,
-        }
-      );
-
-      const cloudData = await res.json();
-      setFormData({ ...formData, studentImageUrl: cloudData.secure_url });
-      alert("Image uploaded successfully!");
-    } catch (err) {
-      console.error(err);
-      alert("Image upload failed!");
-    } finally {
-      setUploading(false);
-    }
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!file) {
+      return alert("Please select an image!");
+    }
+
+    const data = new FormData();
+    data.append("studentName", formData.studentName);
+    data.append("studentMobile", formData.studentMobile);
+    data.append("courseName", formData.courseName);
+    data.append("courseDuration", formData.courseDuration);
+    data.append("address", formData.address);
+    data.append("admissionDate", formData.admissionDate);
+    data.append("file", file); // file multer ধরবে backend এ
 
     try {
       const res = await fetch(`${baseUrl}/student`, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
+        body: data, // JSON নয়, FormData পাঠাতে হবে
       });
 
       if (res.ok) {
         alert("Student added successfully!");
         setFormData({
           studentName: "",
-          studentImageUrl: "",
           studentMobile: "",
           courseName: "",
           courseDuration: "",
@@ -131,23 +107,9 @@ export default function StudentForm() {
             type="file"
             onChange={(e) => setFile(e.target.files[0])}
             className="w-full border p-2 rounded-lg"
+            accept="image/*"
+            required
           />
-          <button
-            type="button"
-            onClick={handleImageUpload}
-            disabled={uploading}
-            className="mt-2 bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition"
-          >
-            {uploading ? "Uploading..." : "Upload to Cloudinary"}
-          </button>
-
-          {formData.studentImageUrl && (
-            <img
-              src={formData.studentImageUrl}
-              alt="preview"
-              className="mt-3 w-24 h-24 object-cover rounded-lg border"
-            />
-          )}
         </div>
 
         {/* Mobile */}
