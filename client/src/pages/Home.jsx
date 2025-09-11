@@ -30,6 +30,7 @@ import {
 import Slider from "@/components/Slider";
 import Teachers from "@/components/Teachers";
 import AddressCard from "@/components/AddressCard";
+import { Link } from "react-router-dom";
 
 const baseUrl = import.meta.env.VITE_BASE_URL;
 // demo slides
@@ -112,16 +113,6 @@ export default function Home() {
         });
       })
       .catch((err) => console.error("Error:", err));
-  };
-
-  // Auto-fill form when "অ্যাডমিশন নিন" button is clicked
-  const fillForm = (course) => {
-    setFormData({
-      ...formData,
-      courseName: course.courseName,
-      duration: course.courseDuration,
-    });
-    window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
   };
 
   return (
@@ -288,52 +279,80 @@ export default function Home() {
       {/* Courses Section */}
       <section
         id="courses"
-        className="max-w-7xl mx-auto py-4 bg-gradient-to-bl from-[#d1d1d1] to-[#c9bbc8] rounded-xl mt-4 shadow-md"
+        className="max-w-7xl mx-auto py-10 bg-gradient-to-bl from-[#b9c9eb] to-[#e5e7eb] rounded-2xl mt-6 shadow-sm"
       >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex items-end justify-between gap-4 mb-8">
+          {/* Section Header */}
+          <div className="flex items-end justify-between gap-4 mb-10">
             <div>
-              <h2 className="text-3xl md:text-4xl font-bold">জনপ্রিয় কোর্স</h2>
-              <p className="text-slate-600">
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
+                জনপ্রিয় কোর্স
+              </h2>
+              <p className="text-slate-600 mt-2">
                 স্কিল আপগ্রেড করতে বেছে নিন আপনার কোর্স।
               </p>
             </div>
-            <Button variant="outline" className="rounded-2xl">
+            <Button
+              variant="outline"
+              className="rounded-2xl px-6 py-2 border-gray-400 hover:bg-gray-100 transition"
+            >
               সব কোর্স
             </Button>
           </div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {/* Courses Grid */}
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {courses.map((c) => (
               <Card
                 key={c._id}
-                className="group rounded-2xl hover:shadow-lg transition"
+                className="group rounded-2xl hover:shadow-xl transition bg-white"
               >
                 <CardHeader>
-                  <CardTitle className="text-xl">{c.courseName}</CardTitle>
-                  <div className="text-sm text-slate-500">
-                    {c.tags?.map((t) => t.tagName).join(", ")}
+                  <CardTitle className="text-lg font-semibold text-gray-900">
+                    {c.courseName}
+                  </CardTitle>
+                  <div className="flex flex-wrap gap-2 mt-2">
+                    {c.tags?.map((t, i) => (
+                      <span
+                        key={i}
+                        className="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded-lg"
+                      >
+                        {t.tagName}
+                      </span>
+                    ))}
                   </div>
                 </CardHeader>
+
                 <CardContent className="space-y-4">
-                  <div className="flex items-center justify-between text-sm">
+                  {/* Duration */}
+                  <div className="flex items-center justify-between text-sm text-gray-700">
                     <span className="inline-flex items-center gap-2">
-                      <Clock className="h-4 w-4" /> {c.courseDuration}
+                      <Clock className="h-4 w-4 text-gray-500" />
+                      {c.courseDuration}
                     </span>
                   </div>
-                  <ul className="space-y-2 text-sm">
+
+                  {/* Course Topics */}
+                  <ul className="space-y-2 text-sm text-gray-700">
                     {c.courseTitel?.map((t, idx) => (
                       <li key={idx} className="flex items-center gap-2">
-                        <CheckCircle2 className="h-4 w-4" /> {t.titelName}
+                        <CheckCircle2 className="h-4 w-4 text-green-600" />
+                        {t.titelName}
                       </li>
                     ))}
                   </ul>
-                  <Button
-                    className="w-full rounded-2xl"
-                    onClick={() => fillForm(c)}
+
+                  {/* CTA Button */}
+                  <Link
+                    to="/student"
+                    state={{
+                      courseName: c.courseName,
+                      courseDuration: c.courseDuration,
+                    }}
+                    className="block text-center bg-black text-white px-6 py-2 rounded-xl hover:bg-gray-800 transition"
                   >
                     অ্যাডমিশন নিন
-                  </Button>
+                  </Link>
                 </CardContent>
               </Card>
             ))}

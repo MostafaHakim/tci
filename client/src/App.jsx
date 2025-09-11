@@ -4,11 +4,13 @@ import Login from "./pages/Login";
 import CourseForm from "./components/CourseForm";
 import VisitorMessage from "./components/VisitorMessage";
 import Settings from "./components/Settings";
+import StudentForm from "./components/StudentFrom";
 
 function App() {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
+      <Route path="/student" element={<StudentForm />} />
       <Route path="/admin" element={<Login />}>
         <Route path="message" element={<VisitorMessage />} />
         <Route path="settings" element={<Settings />} />
