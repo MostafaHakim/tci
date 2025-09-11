@@ -4,6 +4,7 @@ const teacherSchema = mongoose.Schema({
   seletedCourse: String,
   descriptions: String,
   teacherImageUrl: String,
+  teacherImageId: String,
 });
 
 module.exports = mongoose.model("teachers", teacherSchema);

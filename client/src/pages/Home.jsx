@@ -22,15 +22,12 @@ import {
   Star,
   ArrowRight,
   CheckCircle2,
-  Phone,
-  MapPin,
-  Mail,
 } from "lucide-react";
 
 import Slider from "@/components/Slider";
-import Teachers from "@/components/Teachers";
 import AddressCard from "@/components/AddressCard";
 import { Link } from "react-router-dom";
+import TeachersCard from "@/components/TeachersCard";
 
 const baseUrl = import.meta.env.VITE_BASE_URL;
 // demo slides
@@ -439,7 +436,7 @@ export default function Home() {
         id="teachers"
         className="max-w-7xl mx-auto py-4 mt-4 rounded-xl shadow-lg bg-gradient-to-br from-[#82ccdd] to-[#60a3bc]"
       >
-        <Teachers />
+        <TeachersCard />
       </section>
 
       {/* Footer */}

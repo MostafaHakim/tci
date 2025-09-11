@@ -26,6 +26,7 @@ mongoose
 app.get("/", (req, res) => {
   res.send("Hello, world!");
 });
+// Static file serve
 
 app.use("/user", userRoute);
 app.use("/course", courseRoute);

@@ -6,6 +6,7 @@ import VisitorMessage from "./components/VisitorMessage";
 import Settings from "./components/Settings";
 import StudentForm from "./components/StudentFrom";
 import Students from "./components/Students";
+import Teachers from "./components/Teachers";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
       <Route path="/student" element={<StudentForm />} />
       <Route path="/admin" element={<Login />}>
         <Route path="students" element={<Students />} />
+        <Route path="teachers" element={<Teachers />} />
         <Route path="message" element={<VisitorMessage />} />
         <Route path="settings" element={<Settings />} />
       </Route>

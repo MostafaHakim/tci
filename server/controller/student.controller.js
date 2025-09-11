@@ -1,12 +1,7 @@
 const Student = require("../model/student.model");
 const cloudinary = require("cloudinary").v2;
 const streamifier = require("streamifier"); // নতুন যোগ করতে হবে
-
-cloudinary.config({
-  cloud_name: "doyhiacif",
-  api_key: "221424586279484",
-  api_secret: "7zGbqoNSC4FkgeKWPQcwBPVxTCs",
-});
+const cloudinary = require("../config/cloudinary");
 
 const createStudent = async (req, res) => {
   try {
