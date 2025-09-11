@@ -39,7 +39,7 @@ export default function Teachers() {
   }
 
   return (
-    <div className="max-w-5xl mx-auto mt-10">
+    <div className=" mx-auto mt-10">
       {/* Header */}
       <div className="flex flex-row items-center justify-between mb-6">
         <h2 className="text-2xl font-bold text-center">Teachers List</h2>
@@ -76,7 +76,7 @@ export default function Teachers() {
           </button>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {teachers.map((teacher) => (
             <div
               key={teacher._id}
