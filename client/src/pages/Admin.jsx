@@ -125,8 +125,9 @@ export default function Admin({ onLogout }) {
           </div>
           <div
             className={`${
-              location.pathname === "/admin/message" ||
-              location.pathname === "/admin/settings"
+              location.pathname === "/admin"
+                ? "block"
+                : location.pathname.startsWith("/admin/")
                 ? "hidden"
                 : "block"
             }`}

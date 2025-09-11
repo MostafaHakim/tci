@@ -5,6 +5,7 @@ import CourseForm from "./components/CourseForm";
 import VisitorMessage from "./components/VisitorMessage";
 import Settings from "./components/Settings";
 import StudentForm from "./components/StudentFrom";
+import Students from "./components/Students";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
       <Route path="/" element={<Home />} />
       <Route path="/student" element={<StudentForm />} />
       <Route path="/admin" element={<Login />}>
+        <Route path="students" element={<Students />} />
         <Route path="message" element={<VisitorMessage />} />
         <Route path="settings" element={<Settings />} />
       </Route>

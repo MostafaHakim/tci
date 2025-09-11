@@ -36,6 +36,12 @@ function Sidebar({ onLogout, isOpen, onClose }) {
           >
             <Home size={20} /> Dashboard
           </Link>
+          <Link
+            to="/admin/students"
+            className="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-700"
+          >
+            <Home size={20} /> Students
+          </Link>
 
           <Link
             to="/admin/message"
