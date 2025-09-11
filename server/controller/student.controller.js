@@ -1,5 +1,6 @@
 const Student = require("../model/student.model");
 const cloudinary = require("cloudinary").v2;
+const streamifier = require("streamifier"); // নতুন যোগ করতে হবে
 
 cloudinary.config({
   cloud_name: "doyhiacif",
@@ -11,15 +12,30 @@ const createStudent = async (req, res) => {
   try {
     const { studentName, studentMobile, courseName, courseDuration, address } =
       req.body;
-    const file = req.file; // যদি multer ব্যবহার করে থাকো
+    const file = req.file;
 
-    if (!file)
+    if (!file) {
       return res.status(400).json({ message: "Please upload an image" });
+    }
 
-    // Cloudinary-তে আপলোড
-    const result = await cloudinary.uploader.upload(file.path, {
-      folder: "students", // folder name in cloudinary
-    });
+    // Cloudinary-তে buffer আপলোড
+    const uploadFromBuffer = (fileBuffer) => {
+      return new Promise((resolve, reject) => {
+        const stream = cloudinary.uploader.upload_stream(
+          { folder: "students" },
+          (error, result) => {
+            if (result) {
+              resolve(result);
+            } else {
+              reject(error);
+            }
+          }
+        );
+        streamifier.createReadStream(fileBuffer).pipe(stream);
+      });
+    };
+
+    const result = await uploadFromBuffer(file.buffer);
 
     // নতুন স্টুডেন্ট তৈরি
     const newStudent = new Student({
@@ -28,8 +44,8 @@ const createStudent = async (req, res) => {
       courseName,
       courseDuration,
       address,
-      studentImageUrl: result.secure_url, // Cloudinary URL
-      studentImageId: result.public_id, // Cloudinary public_id
+      studentImageUrl: result.secure_url,
+      studentImageId: result.public_id,
     });
 
     await newStudent.save();
@@ -41,6 +57,7 @@ const createStudent = async (req, res) => {
     return res.status(500).json({ message: "Server Error" });
   }
 };
+
 const getAllStudent = async (req, res) => {
   try {
     const getStudent = await Student.find();
