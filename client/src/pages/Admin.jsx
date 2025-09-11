@@ -12,12 +12,13 @@ export default function Admin({ onLogout }) {
   const [isOpen, setIsOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const location = useLocation();
+  const baseUrl = import.meta.env.VITE_BASE_URL;
   const adminNameLocal = localStorage.getItem("adminName");
   useEffect(() => {
     fetchUsers();
     fetchCourses();
   }, []);
-  const baseUrl = import.meta.env.VITE_BASE_URL;
+
   const fetchUsers = async () => {
     try {
       const res = await fetch(`${baseUrl}/user`);
