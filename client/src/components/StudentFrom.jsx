@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export default function StudentForm() {
   const location = useLocation();
@@ -13,7 +13,7 @@ export default function StudentForm() {
     address: "",
     admissionDate: "",
   });
-
+  const navigate = useNavigate();
   useEffect(() => {
     if (courseName || courseDuration) {
       setFormData((prev) => ({
@@ -67,6 +67,7 @@ export default function StudentForm() {
           admissionDate: "",
         });
         setFile(null);
+        navigate("/admin/students");
       } else {
         alert("Failed to add student!");
       }
