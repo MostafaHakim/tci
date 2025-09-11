@@ -67,7 +67,7 @@ export default function StudentForm() {
           admissionDate: "",
         });
         setFile(null);
-        navigate("/admin/student");
+        navigate("/admin");
       } else {
         alert("Failed to add student!");
       }
