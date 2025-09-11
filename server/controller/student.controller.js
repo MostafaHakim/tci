@@ -1,5 +1,4 @@
 const Student = require("../model/student.model");
-const cloudinary = require("cloudinary").v2;
 const streamifier = require("streamifier"); // নতুন যোগ করতে হবে
 const cloudinary = require("../config/cloudinary");
 
