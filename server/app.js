@@ -32,7 +32,7 @@ app.use("/course", courseRoute);
 app.use("/admin", adminRoute);
 app.use("/siteinfo", siteInfoRoute);
 app.use("/teacher", teacherRoute);
-app.use("/student");
+app.use("/student", studentRoute);
 
 app.use((req, res) => {
   res.status(404).send("Route not found");
