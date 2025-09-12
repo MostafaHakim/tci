@@ -150,23 +150,23 @@ export default function Home() {
       <section className="mx-auto mt-2 max-w-7xl grid grid-cols-1 md:grid-cols-8 gap-6 items-center px-4 md:px-6 lg:px-8 py-10 bg-gradient-to-bl from-[#ffffff] to-[#aac9ec] shadow-2xl rounded-xl">
         {/* Left Content */}
         <div className="flex flex-col col-span-3 space-y-6 text-center md:text-left">
-          <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-slate-900">
+          <h2 className="text-lg sm:text-2xl md:text-4xl font-bold tracking-tight text-slate-900">
             Tangail Computer Institute
           </h2>
 
-          <h1 className="text-2xl md:text-3xl lg:text-4xl font-extrabold leading-tight">
+          <h1 className="text-lg sm:text-2xl md:text-3xl lg:text-4xl font-extrabold leading-tight">
             আপনার ক্যারিয়ার শুরু হোক{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-pink-600">
               টিসিআই এর সাথে
             </span>
           </h1>
 
-          <p className="text-lg md:text-xl text-slate-600 max-w-xl mx-auto md:mx-0">
+          <p className="text-sm sm:text-lg md:text-xl text-slate-600 max-w-xl mx-auto md:mx-0">
             প্রজেক্ট-ভিত্তিক কোর্স, ইন্ডাস্ট্রি এক্সপার্ট মেন্টর আর জব-রেডি
             কারিকুলাম—সবকিছু এক জায়গায়।
           </p>
 
-          <div className="mt-6 flex flex-wrap gap-4 justify-center md:justify-start">
+          <div className="mt-2 md:mt-6 flex flex-wrap gap-4 justify-center md:justify-start">
             <Button
               asChild
               size="lg"
