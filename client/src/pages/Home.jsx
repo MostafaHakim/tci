@@ -1,8 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import slide1 from "../img/01.jpeg";
-import slide2 from "../img/02.jpeg";
-import slide4 from "../img/04.jpeg";
 
 import { Button } from "../components/ui/button";
 import Logo from "../img/logo.jpeg";
@@ -121,7 +118,7 @@ export default function Home() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <a href="#" className="flex items-center gap-2 font-bold text-xl">
             <img src={Logo} alt="TCI" className="h-8 w-8" />
-            <span className="text-sm md:text-md">
+            <span className="text-sm md:text-2xl">
               Tangail Computer Institute
             </span>
           </a>
