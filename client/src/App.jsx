@@ -7,6 +7,7 @@ import Settings from "./components/Settings";
 import StudentForm from "./components/StudentFrom";
 import Students from "./components/Students";
 import Teachers from "./components/Teachers";
+import Slides from "./components/Slides";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="teachers" element={<Teachers />} />
         <Route path="message" element={<VisitorMessage />} />
         <Route path="settings" element={<Settings />} />
+        <Route path="slides" element={<Slides />} />
       </Route>
       <Route path="/admin/course/add" element={<CourseForm />} />
     </Routes>

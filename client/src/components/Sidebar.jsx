@@ -65,6 +65,12 @@ function Sidebar({ onLogout, isOpen, onClose }) {
           >
             <Users size={20} /> Visitor Message
           </Link>
+          <Link
+            to="/admin/slides"
+            className="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-700"
+          >
+            <Users size={20} /> Slides
+          </Link>
 
           <Link
             to="/admin/reports"

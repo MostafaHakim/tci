@@ -15,6 +15,7 @@ const adminRoute = require("./router/admin.route");
 const siteInfoRoute = require("./router/site.route");
 const teacherRoute = require("./router/teacher.route");
 const studentRoute = require("./router/student.route");
+const slidesRoute = require("./router/slide.route");
 
 const MONGO_URI = process.env.MONGO_URI;
 
@@ -34,6 +35,7 @@ app.use("/admin", adminRoute);
 app.use("/siteinfo", siteInfoRoute);
 app.use("/teacher", teacherRoute);
 app.use("/student", studentRoute);
+app.use("/slides", slidesRoute);
 
 app.use((req, res) => {
   res.status(404).send("Route not found");
