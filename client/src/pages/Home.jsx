@@ -30,20 +30,6 @@ import { Link } from "react-router-dom";
 import TeachersCard from "@/components/TeachersCard";
 
 const baseUrl = import.meta.env.VITE_BASE_URL;
-// demo slides
-const demoSlides = [
-  {
-    src: slide1,
-    caption: "সার্টিফিকেট বিতরন",
-    tag: "Tangail Computer Institute",
-  },
-  { src: slide2, caption: "বিদায় অনুষ্ঠান", tag: "Tangail Computer Institute" },
-  {
-    src: slide4,
-    caption: "সার্টিফিকেট বিতরন",
-    tag: "Tangail Computer Institute",
-  },
-];
 
 // stats data
 const stats = [
@@ -55,6 +41,7 @@ const stats = [
 
 export default function Home() {
   const [formMsg, setFormMsg] = useState("");
+  const [slides, setSlides] = useState("");
   const [formData, setFormData] = useState({
     userName: "",
     mobileNumber: "",
@@ -62,6 +49,21 @@ export default function Home() {
     courseName: "",
     duration: "",
   });
+
+  // Fetch all slides
+  const fetchSlides = async () => {
+    try {
+      const res = await fetch(`${baseUrl}/slides`);
+      const data = await res.json();
+      setSlides(data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  useEffect(() => {
+    fetchSlides();
+  }, []);
 
   const [courses, setCourses] = useState([]); // backend থেকে আসবে
 
@@ -189,7 +191,7 @@ export default function Home() {
         <div className="col-span-5">
           <div className="w-full aspect-[16/9] overflow-hidden rounded-2xl shadow-lg">
             <Slider
-              slides={demoSlides}
+              slides={slides}
               autoPlay
               interval={3500}
               loop
