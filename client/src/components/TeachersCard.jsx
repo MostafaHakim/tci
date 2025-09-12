@@ -38,7 +38,7 @@ function normalizeTeacher(raw = {}) {
       raw.teacher_name ||
       "নাম নেই",
     selectedCourse:
-      raw.selectedCourse ||
+      raw.seletedCourse ||
       raw.subject ||
       raw.course ||
       raw.selected_course ||
