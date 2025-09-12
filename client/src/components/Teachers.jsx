@@ -128,7 +128,7 @@ export default function Teachers() {
 
       {/* Modal */}
       {openModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+        <div className="fixed inset-0 bg-gray-500 bg-opacity-50 flex justify-center items-center z-50">
           <div className="bg-white rounded-2xl shadow-lg w-full max-w-lg relative">
             {/* Close button */}
             <button

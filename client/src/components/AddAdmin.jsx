@@ -9,6 +9,7 @@ function AddAdmin({
   errors,
   Eye,
   handleAddAdmin,
+  EyeOff,
 }) {
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
@@ -63,8 +64,7 @@ function AddAdmin({
             }`}
           >
             <option value="">--Select Type--</option>
-            <option value="Main">Main</option>
-            <option value="Temporary">Temporary</option>
+            <option value="Moderator">Moderator</option>
           </select>
           {errors.adminType && (
             <p className="text-red-500 text-sm">{errors.adminType}</p>

@@ -76,18 +76,14 @@ export default function TeacherForm({ onSuccess }) {
           <label className="block text-gray-700 font-medium mb-1">
             Selected Course
           </label>
-          <select
+          <input
+            type="text"
             name="selectedCourse"
             value={formData.selectedCourse}
             onChange={handleChange}
             className="w-full border border-gray-300 rounded-lg px-3 py-2"
             required
-          >
-            <option value="">Select a course</option>
-            <option value="React">React</option>
-            <option value="Node.js">Node.js</option>
-            <option value="MongoDB">MongoDB</option>
-          </select>
+          />
         </div>
 
         {/* Descriptions */}

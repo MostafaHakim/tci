@@ -1,5 +1,13 @@
 import React from "react";
-import { Home, Users, BarChart, Settings, LogOut, X } from "lucide-react";
+import {
+  Home,
+  Users,
+  BarChart,
+  Settings,
+  LogOut,
+  X,
+  GraduationCap,
+} from "lucide-react";
 import { Link } from "react-router-dom";
 
 function Sidebar({ onLogout, isOpen, onClose }) {
@@ -36,17 +44,19 @@ function Sidebar({ onLogout, isOpen, onClose }) {
           >
             <Home size={20} /> Dashboard
           </Link>
+
           <Link
             to="/admin/students"
             className="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-700"
           >
-            <Home size={20} /> Students
+            <Users size={20} /> Students
           </Link>
+
           <Link
             to="/admin/teachers"
             className="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-700"
           >
-            <Home size={20} /> Teacher
+            <GraduationCap size={20} /> Teachers
           </Link>
 
           <Link

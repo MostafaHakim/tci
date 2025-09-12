@@ -179,6 +179,7 @@ export default function Settings() {
         handleEdit={handleEdit}
         handleDelete={handleDelete}
         Eye={Eye}
+        EyeOff={EyeOff}
       />
       <Siteinfo />
       {/* ----------------- Add Admin Modal ----------------- */}
@@ -191,6 +192,7 @@ export default function Settings() {
           setShowAddForm={setShowAddForm}
           errors={errors}
           Eye={Eye}
+          EyeOff={EyeOff}
           handleAddAdmin={handleAddAdmin}
         />
       )}

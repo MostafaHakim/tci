@@ -13,8 +13,10 @@ function AdminList({
   handleEdit,
   handleDelete,
   Eye,
+  EyeOff,
 }) {
   const adminTypeLocals = localStorage.getItem("adminType");
+
   return (
     <div className="grid gap-6 md:grid-cols-2">
       {admins.map((admin) => (
@@ -80,10 +82,15 @@ function AdminList({
               <p className="font-semibold text-gray-700 mb-1">
                 Name: <span className="font-normal">{admin.adminName}</span>
               </p>
-              <p className="font-semibold text-gray-700 mb-1">
-                Password:{" "}
-                <span className="font-normal">{admin.adminPassword}</span>
-              </p>
+              {adminTypeLocals !== "Main" ? (
+                ""
+              ) : (
+                <p className="font-semibold text-gray-700 mb-1">
+                  Password:{" "}
+                  <span className="font-normal">{admin.adminPassword}</span>
+                </p>
+              )}
+
               <p className="font-semibold text-gray-700 mb-3">
                 Type: <span className="font-normal">{admin.adminType}</span>
               </p>
