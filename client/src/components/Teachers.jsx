@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import TeacherForm from "./TeacherForm";
+import { FaTrash } from "react-icons/fa"; // Trash Icon
 
 export default function Teachers() {
   const [teachers, setTeachers] = useState([]);
@@ -15,18 +16,38 @@ export default function Teachers() {
 
       if (!res.ok) {
         console.error("Fetch error:", res.status, res.statusText);
-        setTeachers([]); // empty array on error
+        setTeachers([]);
         setLoading(false);
         return;
       }
 
       const data = await res.json();
-      setTeachers(Array.isArray(data) ? data : []); // ensure array
+      setTeachers(Array.isArray(data) ? data : []);
       setLoading(false);
     } catch (error) {
       console.error("Error fetching teachers:", error);
       setTeachers([]);
       setLoading(false);
+    }
+  };
+
+  const deleteTeacher = async (id) => {
+    if (!confirm("Are you sure you want to delete this teacher?")) return;
+
+    try {
+      const res = await fetch(`${baseUrl}/teacher/${id}`, {
+        method: "DELETE",
+      });
+
+      if (!res.ok) {
+        console.error("Delete failed:", res.status, res.statusText);
+        return;
+      }
+
+      // refresh list after delete
+      fetchTeachers();
+    } catch (error) {
+      console.error("Error deleting teacher:", error);
     }
   };
 
@@ -80,8 +101,16 @@ export default function Teachers() {
           {teachers.map((teacher) => (
             <div
               key={teacher._id}
-              className="bg-white shadow-lg rounded-2xl p-4 flex flex-col items-center text-center"
+              className="bg-white shadow-lg rounded-2xl p-4 flex flex-col items-center text-center relative"
             >
+              {/* Delete Button */}
+              <button
+                onClick={() => deleteTeacher(teacher._id)}
+                className="absolute top-3 right-3 text-red-500 hover:text-red-700 transition"
+              >
+                <FaTrash />
+              </button>
+
               {teacher.teacherImageUrl && (
                 <img
                   src={teacher.teacherImageUrl}
@@ -110,8 +139,8 @@ export default function Teachers() {
             </button>
             <TeacherForm
               onSuccess={() => {
-                setOpenModal(false); // modal close
-                fetchTeachers(); // refresh list
+                setOpenModal(false);
+                fetchTeachers();
               }}
             />
           </div>

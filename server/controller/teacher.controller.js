@@ -69,4 +69,22 @@ const getAllTeacher = async (req, res) => {
   }
 };
 
-module.exports = { getAllTeacher, createTeacher };
+const deleteTeacher = async (req, res) => {
+  try {
+    const teacher = await Teacher.findById(req.params.id);
+    if (!teacher) return res.status(404).json({ error: "Teacher not found" });
+
+    // যদি Cloudinary public_id থাকে তাহলে ইমেজ ডিলিট করবো
+    if (teacher.teacherImageId) {
+      await cloudinary.uploader.destroy(teacher.teacherImageId);
+    }
+
+    await Teacher.findByIdAndDelete(req.params.id);
+
+    res.json({ message: "Teacher and image deleted successfully" });
+  } catch (error) {
+    console.error("Delete error:", error);
+    res.status(500).json({ error: "Failed to delete teacher" });
+  }
+};
+module.exports = { getAllTeacher, createTeacher, deleteTeacher };
