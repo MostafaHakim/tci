@@ -2,29 +2,18 @@ import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 
 import { Button } from "../components/ui/button";
-import Logo from "../img/logo.jpeg";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "../components/ui/card";
 
-import { Input } from "../components/ui/input";
+import { Card, CardContent } from "../components/ui/card";
 
-import {
-  GraduationCap,
-  Clock,
-  Users,
-  Star,
-  ArrowRight,
-  CheckCircle2,
-} from "lucide-react";
+import { GraduationCap, Clock, Users, Star, ArrowRight } from "lucide-react";
 
 import Slider from "@/components/Slider";
-import AddressCard from "@/components/AddressCard";
-import { Link } from "react-router-dom";
+
 import TeachersCard from "@/components/TeachersCard";
+import axios from "axios";
+import Courses from "@/components/Courses";
+import Navbar from "@/components/Navbar";
+import Question from "@/components/Question";
 
 const baseUrl = import.meta.env.VITE_BASE_URL;
 
@@ -39,6 +28,8 @@ const stats = [
 export default function Home() {
   const [formMsg, setFormMsg] = useState("");
   const [slides, setSlides] = useState("");
+  const [siteName, setSiteName] = useState("");
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     userName: "",
     mobileNumber: "",
@@ -46,6 +37,16 @@ export default function Home() {
     courseName: "",
     duration: "",
   });
+
+  useEffect(() => {
+    axios.get(`${baseUrl}/siteinfo`).then((res) => {
+      if (Array.isArray(res.data) && res.data.length > 0) {
+        setSiteName(res.data[0].siteName);
+      } else if (res.data.siteName) {
+        setSiteName(res.data.siteName);
+      }
+    });
+  }, []);
 
   // Fetch all slides
   const fetchSlides = async () => {
@@ -61,22 +62,11 @@ export default function Home() {
   useEffect(() => {
     fetchSlides();
   }, []);
-
-  const [courses, setCourses] = useState([]); // backend থেকে আসবে
-
-  // Fetch courses from backend
-  useEffect(() => {
-    fetch(`${baseUrl}/course`)
-      .then((res) => res.json())
-      .then((data) => {
-        setCourses(data);
-      })
-      .catch((err) => console.error("Error fetching courses:", err));
-  }, []);
+  // ================Site Info==================
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
+    setLoading(true);
     const payload = {
       userName: formData.userName,
       mobileNumber: formData.mobileNumber,
@@ -107,6 +97,7 @@ export default function Home() {
           courseName: "",
           duration: "",
         });
+        setLoading(false);
       })
       .catch((err) => console.error("Error:", err));
   };
@@ -115,40 +106,14 @@ export default function Home() {
     <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white text-slate-900">
       {/* Navbar */}
       <header className="sticky top-0 z-40 backdrop-blur bg-white/70 border-b">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-          <a href="#" className="flex items-center gap-2 font-bold text-xl">
-            <img src={Logo} alt="TCI" className="h-8 w-8" />
-            <span className="text-sm md:text-2xl">
-              Tangail Computer Institute
-            </span>
-          </a>
-          <nav className="hidden md:flex items-center gap-8 text-sm font-medium">
-            <a href="#courses" className="hover:text-slate-700">
-              কোর্স
-            </a>
-            <a href="#why" className="hover:text-slate-700">
-              কেন আমরা
-            </a>
-            <a href="#schedule" className="hover:text-slate-700">
-              শিডিউল
-            </a>
-            <a href="#contact" className="hover:text-slate-700">
-              যোগাযোগ
-            </a>
-          </nav>
-          <div className="flex items-center gap-3">
-            <Button className="py-1 rounded-2xl text-xs md:text-md">
-              ডেমো ক্লাস
-            </Button>
-          </div>
-        </div>
+        <Navbar siteName={siteName} Button={Button} />
       </header>
 
       <section className="mx-auto mt-2 max-w-7xl grid grid-cols-1 md:grid-cols-8 gap-6 items-center px-4 md:px-6 lg:px-8 py-10 bg-gradient-to-bl from-[#ffffff] to-[#aac9ec] shadow-2xl rounded-xl">
         {/* Left Content */}
         <div className="flex flex-col col-span-3 space-y-6 text-center md:text-left">
           <h2 className="text-lg sm:text-2xl md:text-4xl font-bold tracking-tight text-slate-900">
-            Tangail Computer Institute
+            {siteName}
           </h2>
 
           <h1 className="text-lg sm:text-2xl md:text-3xl lg:text-4xl font-extrabold leading-tight">
@@ -273,162 +238,17 @@ export default function Home() {
       </section>
 
       {/* Courses Section */}
-      <section
-        id="courses"
-        className="max-w-7xl mx-auto py-10 bg-gradient-to-bl from-[#b9c9eb] to-[#e5e7eb] rounded-2xl mt-6 shadow-sm"
-      >
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          {/* Section Header */}
-          <div className="flex items-end justify-between gap-4 mb-10">
-            <div>
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
-                জনপ্রিয় কোর্স
-              </h2>
-              <p className="text-slate-600 mt-2">
-                স্কিল আপগ্রেড করতে বেছে নিন আপনার কোর্স।
-              </p>
-            </div>
-            <Button
-              variant="outline"
-              className="rounded-2xl px-6 py-2 border-gray-400 hover:bg-gray-100 transition"
-            >
-              সব কোর্স
-            </Button>
-          </div>
-
-          {/* Courses Grid */}
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {courses.map((c) => (
-              <Card
-                key={c._id}
-                className="group rounded-2xl hover:shadow-xl transition bg-white"
-              >
-                <CardHeader>
-                  <CardTitle className="text-lg font-semibold text-gray-900">
-                    {c.courseName}
-                  </CardTitle>
-                  <div className="flex flex-wrap gap-2 mt-2">
-                    {c.tags?.map((t, i) => (
-                      <span
-                        key={i}
-                        className="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded-lg"
-                      >
-                        {t.tagName}
-                      </span>
-                    ))}
-                  </div>
-                </CardHeader>
-
-                <CardContent className="space-y-4">
-                  {/* Duration */}
-                  <div className="flex items-center justify-between text-sm text-gray-700">
-                    <span className="inline-flex items-center gap-2">
-                      <Clock className="h-4 w-4 text-gray-500" />
-                      {c.courseDuration}
-                    </span>
-                  </div>
-
-                  {/* Course Topics */}
-                  <ul className="space-y-2 text-sm text-gray-700">
-                    {c.courseTitel?.map((t, idx) => (
-                      <li key={idx} className="flex items-center gap-2">
-                        <CheckCircle2 className="h-4 w-4 text-green-600" />
-                        {t.titelName}
-                      </li>
-                    ))}
-                  </ul>
-
-                  {/* CTA Button */}
-                  <Link
-                    to="/student"
-                    state={{
-                      courseName: c.courseName,
-                      courseDuration: c.courseDuration,
-                    }}
-                    className="block text-center bg-black text-white px-6 py-2 rounded-xl hover:bg-gray-800 transition"
-                  >
-                    অ্যাডমিশন নিন
-                  </Link>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
+      <Courses />
 
       {/* Contact Form Section */}
-      <section
-        id="contact"
-        className="max-w-7xl mx-auto mt-4 py-16 bg-gradient-to-br from-[#c7ecee] to-[#a29bfe] rounded-xl"
-      >
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-10 items-start">
-            <div className="bg-white px-8 py-4 rounded-lg shadow-md">
-              <h2 className="text-3xl md:text-4xl font-bold">
-                অ্যাডমিশন বা জিজ্ঞাসা?
-              </h2>
-              <p className="mt-3 text-slate-600">
-                ফর্মটি পূরণ করুন, আমাদের টিম কল করবে।
-              </p>
-
-              <form
-                className="mt-6 grid grid-cols-1 gap-4 max-w-md"
-                onSubmit={handleSubmit}
-              >
-                <Input
-                  placeholder="আপনার নাম"
-                  required
-                  value={formData.userName}
-                  onChange={(e) =>
-                    setFormData({ ...formData, userName: e.target.value })
-                  }
-                />
-                <Input
-                  type="tel"
-                  placeholder="মোবাইল নম্বর"
-                  required
-                  value={formData.mobileNumber}
-                  onChange={(e) =>
-                    setFormData({ ...formData, mobileNumber: e.target.value })
-                  }
-                />
-                <Input
-                  placeholder="কোন কোর্সে আগ্রহী?"
-                  value={formData.courseName}
-                  onChange={(e) =>
-                    setFormData({ ...formData, courseName: e.target.value })
-                  }
-                />
-                <Input
-                  placeholder="কোর্সের সময়কাল"
-                  value={formData.duration}
-                  onChange={(e) =>
-                    setFormData({ ...formData, duration: e.target.value })
-                  }
-                />
-                <textarea
-                  rows="5"
-                  placeholder="আপনার জিজ্ঞাসা বা ম্যাসেজ বিস্তারিত লিখুন"
-                  value={formData.userComments}
-                  onChange={(e) =>
-                    setFormData({ ...formData, userComments: e.target.value })
-                  }
-                  className="w-full rounded-2xl border border-gray-300 px-4 py-2 text-sm shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-400 focus:outline-none"
-                ></textarea>
-                {formMsg && <span className="text-green-600">{formMsg}</span>}
-                <Button type="submit" className="rounded-2xl">
-                  সাবমিট
-                </Button>
-                <p className="text-xs text-slate-500">
-                  সাবমিট করলেই আপনার ডেটা সিকিউর থাকবে।
-                </p>
-              </form>
-            </div>
-
-            <AddressCard />
-          </div>
-        </div>
-      </section>
+      <Question
+        handleSubmit={handleSubmit}
+        formData={formData}
+        setFormData={setFormData}
+        formMsg={formMsg}
+        Button={Button}
+        loading={loading}
+      />
 
       {/* Teachers Section */}
       <section

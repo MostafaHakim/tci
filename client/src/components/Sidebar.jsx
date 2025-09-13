@@ -7,6 +7,8 @@ import {
   LogOut,
   X,
   GraduationCap,
+  Mail,
+  Images,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -63,20 +65,13 @@ function Sidebar({ onLogout, isOpen, onClose }) {
             to="/admin/message"
             className="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-700"
           >
-            <Users size={20} /> Visitor Message
+            <Mail size={20} /> Visitor Message
           </Link>
           <Link
             to="/admin/slides"
             className="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-700"
           >
-            <Users size={20} /> Slides
-          </Link>
-
-          <Link
-            to="/admin/reports"
-            className="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-700"
-          >
-            <BarChart size={20} /> Reports
+            <Images size={20} /> Slides
           </Link>
 
           <Link

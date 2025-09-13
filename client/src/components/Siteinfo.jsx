@@ -28,7 +28,7 @@ function Siteinfo() {
   };
 
   return (
-    <div className="p-6 max-w-md mx-auto bg-white shadow rounded space-y-4">
+    <div className="p-6  mx-auto bg-white shadow-lg space-y-4 mt-4 border-2 border-purple-500 rounded-xl">
       {/* Site Name */}
       <div className="flex items-center gap-2">
         <label className="w-32 font-medium">Site Name:</label>

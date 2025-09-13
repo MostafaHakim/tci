@@ -1,13 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+
 import { Search, Trash2, Menu } from "lucide-react";
 import Sidebar from "../components/Sidebar";
 import axios from "axios";
 import CourseForm from "../components/CourseForm";
 import { Outlet, useLocation } from "react-router-dom";
+import DashboardStats from "@/components/DashboardStats";
+import DashboardCourse from "@/components/DashboardCourse";
 
 export default function Admin({ onLogout }) {
   const [data, setData] = useState([]);
+  const [admins, setAdmins] = useState([]);
+  const [teachers, setTeachers] = useState([]);
+  const [students, setStudents] = useState([]);
   const [courses, setCourses] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -17,13 +22,43 @@ export default function Admin({ onLogout }) {
   useEffect(() => {
     fetchUsers();
     fetchCourses();
+    fetchStudens();
+    fetchTeachers();
+    fetchAdmins();
   }, []);
 
+  const fetchAdmins = async () => {
+    try {
+      const res = await fetch(`${baseUrl}/admin`);
+      const json = await res.json();
+      setAdmins(json);
+    } catch (err) {
+      console.error("Error fetching users:", err);
+    }
+  };
   const fetchUsers = async () => {
     try {
       const res = await fetch(`${baseUrl}/user`);
       const json = await res.json();
       setData(json);
+    } catch (err) {
+      console.error("Error fetching users:", err);
+    }
+  };
+  const fetchStudens = async () => {
+    try {
+      const res = await fetch(`${baseUrl}/student`);
+      const json = await res.json();
+      setStudents(json);
+    } catch (err) {
+      console.error("Error fetching users:", err);
+    }
+  };
+  const fetchTeachers = async () => {
+    try {
+      const res = await fetch(`${baseUrl}/teacher`);
+      const json = await res.json();
+      setTeachers(json);
     } catch (err) {
       console.error("Error fetching users:", err);
     }
@@ -101,29 +136,13 @@ export default function Admin({ onLogout }) {
         {/* Dashboard Content */}
         <main className="p-6 flex-1">
           {/* Stats */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              className="bg-white rounded-2xl shadow p-6"
-            >
-              <h3 className="text-lg font-semibold">Total Visitor Message</h3>
-              <p className="text-3xl font-bold mt-2">{data.length}</p>
-            </motion.div>
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              className="bg-white rounded-2xl shadow p-6"
-            >
-              <h3 className="text-lg font-semibold">Total Courses</h3>
-              <p className="text-3xl font-bold mt-2">{courses.length}</p>
-            </motion.div>
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              className="bg-white rounded-2xl shadow p-6"
-            >
-              <h3 className="text-lg font-semibold">New User</h3>
-              <p className="text-3xl font-bold mt-2">1</p>
-            </motion.div>
-          </div>
+          <DashboardStats
+            data={data}
+            courses={courses}
+            teachers={teachers}
+            students={students}
+            admins={admins}
+          />
           <div
             className={`${
               location.pathname === "/admin"
@@ -144,55 +163,10 @@ export default function Admin({ onLogout }) {
                   Add Course
                 </button>
               </h2>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-                {courses.map((course) => (
-                  <motion.div
-                    key={course._id}
-                    whileHover={{ scale: 1.03 }}
-                    className="bg-white rounded-2xl shadow-md hover:shadow-xl p-6 border border-gray-100 relative"
-                  >
-                    <button
-                      onClick={() => handleDeleteCourse(course._id)}
-                      className="absolute top-3 right-3 text-red-500 hover:text-red-700"
-                    >
-                      <Trash2 size={18} />
-                    </button>
-                    <h3 className="text-lg font-bold text-gray-800">
-                      {course.courseName}
-                    </h3>
-                    <p className="text-sm text-gray-600 mt-1">
-                      ⏳ Duration: {course.courseDuration}
-                    </p>
-
-                    {course.courseTitel?.length > 0 && (
-                      <div className="mt-3">
-                        <h4 className="text-sm font-semibold">Titles:</h4>
-                        <ul className="list-disc list-inside text-sm text-gray-700">
-                          {course.courseTitel.map((t, i) => (
-                            <li key={i}>{t.titelName}</li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
-
-                    {course.tags?.length > 0 && (
-                      <div className="mt-3">
-                        <h4 className="text-sm font-semibold">Tags:</h4>
-                        <div className="flex flex-wrap gap-2 mt-1">
-                          {course.tags.map((tag, i) => (
-                            <span
-                              key={i}
-                              className="bg-gray-100 text-gray-700 text-xs px-2 py-1 rounded-full"
-                            >
-                              #{tag.tagName}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-                  </motion.div>
-                ))}
-              </div>
+              <DashboardCourse
+                courses={courses}
+                handleDeleteCourse={handleDeleteCourse}
+              />
             </div>
           </div>
           <Outlet />

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { ArrowLeft } from "lucide-react"; // lucide-react থেকে ব্যাক আইকন
 
 export default function StudentForm() {
   const location = useLocation();
@@ -14,6 +15,7 @@ export default function StudentForm() {
     admissionDate: "",
   });
   const navigate = useNavigate();
+
   useEffect(() => {
     if (courseName || courseDuration) {
       setFormData((prev) => ({
@@ -48,16 +50,16 @@ export default function StudentForm() {
     data.append("courseDuration", formData.courseDuration);
     data.append("address", formData.address);
     data.append("admissionDate", formData.admissionDate);
-    data.append("file", file); // file multer ধরবে backend এ
+    data.append("file", file);
 
     try {
       const res = await fetch(`${baseUrl}/student`, {
         method: "POST",
-        body: data, // JSON নয়, FormData পাঠাতে হবে
+        body: data,
       });
 
       if (res.ok) {
-        alert("Student added successfully!");
+        alert("Form Submited successfully!");
         setFormData({
           studentName: "",
           studentMobile: "",
@@ -67,7 +69,7 @@ export default function StudentForm() {
           admissionDate: "",
         });
         setFile(null);
-        navigate("/admin/students");
+        navigate("/");
       } else {
         alert("Failed to add student!");
       }
@@ -81,8 +83,18 @@ export default function StudentForm() {
     <div className="min-h-screen flex items-center justify-center bg-gray-100 p-6">
       <form
         onSubmit={handleSubmit}
-        className="bg-white shadow-lg rounded-2xl p-6 w-full max-w-lg"
+        className="bg-white shadow-lg rounded-2xl p-6 w-full max-w-lg relative"
       >
+        {/* Back Button */}
+        <button
+          type="button"
+          onClick={() => navigate(-1)}
+          className="absolute top-4 left-4 flex items-center text-gray-600 hover:text-gray-800"
+        >
+          <ArrowLeft className="w-5 h-5 mr-1" />
+          Back
+        </button>
+
         <h2 className="text-2xl font-bold mb-4 text-center text-gray-700">
           Student Admission Form
         </h2>

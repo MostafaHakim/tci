@@ -21,6 +21,7 @@ function App() {
         <Route path="settings" element={<Settings />} />
         <Route path="slides" element={<Slides />} />
       </Route>
+      <Route path="/register" element={<StudentForm />} />
       <Route path="/admin/course/add" element={<CourseForm />} />
     </Routes>
   );

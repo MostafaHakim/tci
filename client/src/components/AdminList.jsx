@@ -19,10 +19,10 @@ function AdminList({
 
   return (
     <div className="grid gap-6 md:grid-cols-2">
-      {admins.map((admin) => (
+      {admins.map((admin, i) => (
         <div
           key={admin._id}
-          className="bg-white p-6 rounded-xl shadow hover:shadow-lg transition-shadow duration-300"
+          className={`bg-white p-6 rounded-xl shadow hover:shadow-lg transition-shadow duration-300 `}
         >
           {editingId === admin._id ? (
             <div className="flex flex-col gap-4">
@@ -78,7 +78,11 @@ function AdminList({
               </div>
             </div>
           ) : (
-            <div>
+            <div
+              className={`p-6 rounded-lg shadow-xl ${
+                i % 2 ? "border-2 border-rose-500" : "border-2 border-green-500"
+              }`}
+            >
               <p className="font-semibold text-gray-700 mb-1">
                 Name: <span className="font-normal">{admin.adminName}</span>
               </p>
