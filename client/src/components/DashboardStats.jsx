@@ -1,9 +1,21 @@
 import { motion } from "framer-motion";
-import { MessageCircle, BookOpen, Users, GraduationCap, UserCog } from "lucide-react";
+import {
+  MessageCircle,
+  BookOpen,
+  Users,
+  GraduationCap,
+  UserCog,
+} from "lucide-react";
 
-export default function DashboardStats({ data, courses, teachers, students, admins }) {
+export default function DashboardStats({
+  data,
+  courses,
+  teachers,
+  students,
+  admins,
+}) {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
+    <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-5 gap-4">
       {/* Visitor Message */}
       <motion.div
         whileHover={{ scale: 1.05 }}
