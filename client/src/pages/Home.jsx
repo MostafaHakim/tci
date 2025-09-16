@@ -27,6 +27,9 @@ const stats = [
 ];
 
 export default function Home() {
+  const [siteDescriptionTitel, setSiteDescriptionTitel] = useState([]);
+  const [siteDescription, setSiteDescription] = useState([]);
+  const [siteVideoUrl, setSiteVideoUrl] = useState([]);
   const [formMsg, setFormMsg] = useState("");
   const [slides, setSlides] = useState("");
   const [siteName, setSiteName] = useState("");
@@ -45,6 +48,9 @@ export default function Home() {
         setSiteName(res.data[0].siteName);
       } else if (res.data.siteName) {
         setSiteName(res.data.siteName);
+        setSiteVideoUrl(res.data.siteVideoUrl);
+        setSiteDescription(res.data.siteDescription);
+        setSiteDescriptionTitel(res.data.siteDescriptionTitel);
       }
     });
   }, []);
@@ -242,7 +248,11 @@ export default function Home() {
         id="teachers"
         className="max-w-7xl mx-auto py-4 mt-4 rounded-xl shadow-lg bg-gradient-to-br from-[#A3CB38] to-[#f7d794]"
       >
-        <InstituteDetails />
+        <InstituteDetails
+          siteDescription={siteDescription}
+          siteVideoUrl={siteVideoUrl}
+          siteDescriptionTitel={siteDescriptionTitel}
+        />
       </section>
 
       {/* Courses Section */}

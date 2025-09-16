@@ -17,6 +17,9 @@ const siteInfoSchema = new mongoose.Schema(
     siteDescription: {
       type: String,
     },
+    siteDescriptionTitel: {
+      type: String,
+    },
   },
   { timestamps: true }
 );

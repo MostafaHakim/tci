@@ -2,14 +2,21 @@ const SiteInfo = require("../model/site.model");
 
 const createSiteInfo = async (req, res) => {
   try {
-    const { siteName, address, mobile, siteVideoUrl, siteDescription } =
-      req.body;
+    const {
+      siteName,
+      address,
+      mobile,
+      siteVideoUrl,
+      siteDescription,
+      siteDescriptionTitel,
+    } = req.body;
     const newInfo = new SiteInfo({
       siteName,
       address,
       mobile,
       siteVideoUrl,
       siteDescription,
+      siteDescriptionTitel,
     });
     await newInfo.save();
     res.json(newInfo);
@@ -30,11 +37,24 @@ const getSiteInfo = async (req, res) => {
 // Update site info
 const updateSiteInfo = async (req, res) => {
   try {
-    const { siteName, address, mobile, siteVideoUrl, siteDescription } =
-      req.body;
+    const {
+      siteName,
+      address,
+      mobile,
+      siteVideoUrl,
+      siteDescription,
+      siteDescriptionTitel,
+    } = req.body;
     const updated = await SiteInfo.findOneAndUpdate(
       {}, // single doc ধরে নিচ্ছি
-      { siteName, address, mobile, siteVideoUrl, siteDescription },
+      {
+        siteName,
+        address,
+        mobile,
+        siteVideoUrl,
+        siteDescription,
+        siteDescriptionTitel,
+      },
       { new: true, upsert: true }
     );
     res.json(updated);

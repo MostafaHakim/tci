@@ -8,6 +8,7 @@ function Siteinfo() {
     mobile: "",
     siteVideoUrl: "",
     siteDescription: "",
+    siteDescriptionTitel: "",
   });
   const [editField, setEditField] = useState(null);
   const baseUrl = import.meta.env.VITE_BASE_URL;
@@ -157,12 +158,47 @@ function Siteinfo() {
           </>
         )}
       </div>
+
+      {/* Site Description Titel */}
+      <div className="flex items-center gap-2">
+        <label className="w-32 font-medium">Description Titel:</label>
+        {editField === "siteDescriptionTitel" ? (
+          <>
+            <input
+              className="border rounded px-2 py-1 flex-1"
+              value={siteInfo.siteDescriptionTitel}
+              onChange={(e) =>
+                setSiteInfo({
+                  ...siteInfo,
+                  siteDescriptionTitel: e.target.value,
+                })
+              }
+            />
+            <button
+              className="bg-green-500 text-white px-3 py-1 rounded"
+              onClick={() => handleSave("siteDescriptionTitel")}
+            >
+              Save
+            </button>
+          </>
+        ) : (
+          <>
+            <span className="flex-1">{siteInfo.siteDescriptionTitel}</span>
+            <button
+              className="bg-blue-500 text-white px-3 py-1 rounded"
+              onClick={() => setEditField("siteDescriptionTitel")}
+            >
+              Edit
+            </button>
+          </>
+        )}
+      </div>
       {/* Site Descriptions */}
       <div className="flex items-center gap-2">
         <label className="w-32 font-medium">Site Descriptions:</label>
         {editField === "siteDescription" ? (
           <>
-            <input
+            <textarea
               className="border rounded px-2 py-1 flex-1"
               value={siteInfo.siteDescription}
               onChange={(e) =>
