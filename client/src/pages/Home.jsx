@@ -14,6 +14,7 @@ import axios from "axios";
 import Courses from "@/components/Courses";
 import Navbar from "@/components/Navbar";
 import Question from "@/components/Question";
+import InstituteDetails from "@/components/InstituteDetails";
 
 const baseUrl = import.meta.env.VITE_BASE_URL;
 
@@ -235,6 +236,13 @@ export default function Home() {
             </motion.div>
           </div>
         </div>
+      </section>
+      {/* Institute Details*/}
+      <section
+        id="teachers"
+        className="max-w-7xl mx-auto py-4 mt-4 rounded-xl shadow-lg bg-gradient-to-br from-[#A3CB38] to-[#f7d794]"
+      >
+        <InstituteDetails />
       </section>
 
       {/* Courses Section */}

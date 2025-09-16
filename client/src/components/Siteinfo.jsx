@@ -6,6 +6,8 @@ function Siteinfo() {
     siteName: "",
     address: "",
     mobile: "",
+    siteVideoUrl: "",
+    siteDescription: "",
   });
   const [editField, setEditField] = useState(null);
   const baseUrl = import.meta.env.VITE_BASE_URL;
@@ -118,6 +120,68 @@ function Siteinfo() {
             <button
               className="bg-blue-500 text-white px-3 py-1 rounded"
               onClick={() => setEditField("mobile")}
+            >
+              Edit
+            </button>
+          </>
+        )}
+      </div>
+      {/* VideoUrl */}
+      <div className="flex items-center gap-2">
+        <label className="w-32 font-medium">Site Video Url:</label>
+        {editField === "siteVideoUrl" ? (
+          <>
+            <input
+              className="border rounded px-2 py-1 flex-1"
+              value={siteInfo.siteVideoUrl}
+              onChange={(e) =>
+                setSiteInfo({ ...siteInfo, siteVideoUrl: e.target.value })
+              }
+            />
+            <button
+              className="bg-green-500 text-white px-3 py-1 rounded"
+              onClick={() => handleSave("siteVideoUrl")}
+            >
+              Save
+            </button>
+          </>
+        ) : (
+          <>
+            <span className="flex-1">{siteInfo.siteVideoUrl}</span>
+            <button
+              className="bg-blue-500 text-white px-3 py-1 rounded"
+              onClick={() => setEditField("siteVideoUrl")}
+            >
+              Edit
+            </button>
+          </>
+        )}
+      </div>
+      {/* Site Descriptions */}
+      <div className="flex items-center gap-2">
+        <label className="w-32 font-medium">Site Descriptions:</label>
+        {editField === "siteDescription" ? (
+          <>
+            <input
+              className="border rounded px-2 py-1 flex-1"
+              value={siteInfo.siteDescription}
+              onChange={(e) =>
+                setSiteInfo({ ...siteInfo, siteDescription: e.target.value })
+              }
+            />
+            <button
+              className="bg-green-500 text-white px-3 py-1 rounded"
+              onClick={() => handleSave("siteDescription")}
+            >
+              Save
+            </button>
+          </>
+        ) : (
+          <>
+            <span className="flex-1">{siteInfo.siteDescription}</span>
+            <button
+              className="bg-blue-500 text-white px-3 py-1 rounded"
+              onClick={() => setEditField("siteDescription")}
             >
               Edit
             </button>

@@ -11,6 +11,12 @@ const siteInfoSchema = new mongoose.Schema(
     mobile: {
       type: String,
     },
+    siteVideoUrl: {
+      type: String,
+    },
+    siteDescription: {
+      type: String,
+    },
   },
   { timestamps: true }
 );
